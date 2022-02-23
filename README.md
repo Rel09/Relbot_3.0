@@ -13,6 +13,11 @@ USE AT YOUR OWN RISK
 
 
 __Patch Notes__
+
+_______________________________________________-
+[23/2/2022] 0.3
+-Runelite Settings Completed
+-Added many others functions
 _______________________________________________-
 [23/2/2022] 0.2
 -Started doing the Bot/Automation
