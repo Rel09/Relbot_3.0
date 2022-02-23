@@ -13,8 +13,12 @@ USE AT YOUR OWN RISK
 
 
 __Patch Notes__
-
-[23/2/2022]
+_______________________________________________-
+[23/2/2022] 0.2
+-Started doing the Bot/Automation
+    -Runelite Settings in progress
+_______________________________________________-
+[23/2/2022] 0.1
 -Rework the entire system (from Relbot 2.0)
     -get_winpos
     -itemcheck(x)
