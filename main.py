@@ -21,33 +21,44 @@ def relbot(action):
                 if itemcheck('rl_settings/empty_textbox.png'):
                     left_click('rl_settings/empty_textbox.png')
                     break
-        
+        def switch_handler(state):
+            if state == 1:
+                if itemcheck('rl_settings/off_switch.png'):
+                    left_click('rl_settings/off_switch.png')
+            elif state == 0:
+                if itemcheck('rl_settings/on_switch.png'):
+                    left_click('rl_settings/on_switch.png')
+        def reset_handler():
+            #Reset
+            left_click('rl_settings/reset_button.png')
+            #Reset? Yes
+            left_click('rl_settings/reset_yes.png')
+        def install_plugin(plugin_name):
+            left_click('rl_settings/plugin_hub.png')
+            left_click('rl_settings/plugin_emptytextbox.png')
+            write(plugin_name, 1)
+            time.sleep(3)
+            while True:
+                if itemcheck('rl_settings/plugin_install.png'):
+                    left_click('rl_settings/plugin_install.png')
+                    time.sleep(2)
+                elif itemcheck('rl_settings/plugin_remove.png'):
+                    break
+                time.sleep(1)
+            left_click('rl_settings/back_arrow_textbox2.png')
         #Take care of opening the Settings
         settings_handler()
 
-        #Write Runelite
+        #-------------------------- RUNELITE SETTINGS ----------------
         write('runelite', 1)    
-
-        #Click on Runelite Settings icon
         left_click_from('rl_settings/runelite_config.png', 105, 0)
-
-        #We close all the Runelite tab
         while True:
             if itemcheck('rl_settings/arrow_opened.png'):
                 left_click('rl_settings/arrow_opened.png')
                 time.sleep(0.5)
             else: break
-
-        #Reset
-        left_click('rl_settings/reset_button.png')
-
-        #Reset? Yes
-        left_click('rl_settings/reset_yes.png')
-
-        #Re-open Runelite/Windows Settings
+        reset_handler()
         left_click('rl_settings/runelite_windowsetttings.png')
-
-        #Set Windows Size
         left_click_from('rl_settings/runelite_gamesize.png', 50, 0)
         pyautogui.hotkey('ctrl', 'a')
         write('800', 1)
@@ -56,20 +67,71 @@ def relbot(action):
         pyautogui.hotkey('ctrl', 'a')
         write('650', 1)
         time.sleep(0.5)
-        
-        #Lock Set Windows Size
         left_click_from('rl_settings/runelite_lockwindowssize.png', 160, 0)
-
-        #Get back on Settings
+        settings_handler()
+        
+        #-----------------------CAMERA SETTINGS---------------------
+        write('camera', 1)
+        left_click_from('rl_settings/camera_settings.png', 135, 0)
+        reset_handler()
+        switch_handler(1)
+        left_click_from('rl_settings/camera_vertical.png', 158, 0)
+        left_click_from('rl_settings/camera_controlfunction.png', 130, 0)
+        time.sleep(0.5)
+        left_click_from('rl_settings/camera_controlfunction.png', 130, 80)
+        left_click_from('rl_settings/camera_resetzoomposition.png', 90, 0)
+        pyautogui.hotkey('ctrl', 'a')
+        write('296', 1)
+        left_click_from('rl_settings/camera_preservepitch.png', 120, 0)
+        left_click_from('rl_settings/camera_preserveyaw.png', 130, 0)
+        settings_handler()
+        #--------------------------- LOW DETAIL SETTINGS -------------------
+        write('low detail', 1)
+        left_click_from('rl_settings/settings_lowdetail.png', 130, 0)
+        reset_handler()
+        switch_handler(1)
+        left_click_from('rl_settings/lowdetail_lowerplane.png', 160, 0)
         settings_handler()
 
-        #Low Detail
-        #Hide entity
-        #Camera (Should do after plugin)
-        #Ground marker (Switch to Layout)
-        #Download plugin
+        #Hide entity - Not needed for now
 
-        
+        #Install Sprite marker
+        install_plugin('sprite marker')
+
+        #Back to settings
+        settings_handler()
+        #----------------------------SPRITE MARKER--------------------------
+        write('sprite markers', 1)
+        left_click_from('rl_settings/spritemarket_settings.png', 120, 0)
+        reset_handler()
+        switch_handler(1)
+        left_click_from('rl_settings/sprite_display.png', 160, 0)
+        left_click_from('rl_settings/sprite_showonmap.png', 165, 0)
+        left_click_from('rl_settings/sprite_showtiles.png', 160, 0)
+        left_click_from('rl_settings/sprite_importexport.png', 160, 0)
+        settings_handler()
+
+        #Closing settings
+        left_click('rl_settings/selected_settings.png')
+
+
+        #--------------------- IN GAME SETTINGS ----------------------------
+        while True:
+            if itemcheck('g_settings/unselected_settings.png'):
+                left_click('g_settings/unselected_settings.png')
+            elif itemcheck('g_settings/selected_settings.png'):
+                break        
+        left_click('g_settings/unselected_screen.png')   
+        left_click('g_settings/game_format_arrow.png')
+        left_click('g_settings/resizable_classic.png')
+        left_click('g_settings/north.png')
+        pyautogui.keyDown('up')
+        time.sleep(2.7)
+        pyautogui.keyUp('up')
+        pyautogui.press('ctrl')
+
+
+
 
 
     #Bot_Toolkit
@@ -163,7 +225,7 @@ def relbot(action):
 
 
 
-
+    
 
 
 
@@ -177,6 +239,7 @@ if __name__ == '__main__':
     dev = 0
     if dev == 1:
         #TESTING ---------- Bot_Toolkit
+        img_folder = 'img/'
         def get_winpos():
             windows = Desktop(backend="uia").windows()
             for w in windows:
@@ -202,6 +265,7 @@ if __name__ == '__main__':
             while True:
                 game_region = get_winpos()
                 try:
+                    print('test')
                     x, y = pyautogui.locateCenterOnScreen(img_folder + x, confidence=0.9, region=game_region)
                     pyautogui.moveTo(x, y)
                     time.sleep(0.3)
@@ -260,9 +324,12 @@ if __name__ == '__main__':
                     pass
         
 
-        left_click_from('rl_settings/runelite_lockwindowssize.png', 160, 0)
+        #left_click_from('rl_settings/sprite_display.png', 160, 0)
+        #left_click_from('rl_settings/sprite_showonmap.png', 165, 0)
+        #left_click_from('rl_settings/sprite_showtiles.png', 160, 0)
+        left_click_from('rl_settings/sprite_importexport.png', 160, 0)
+
         
-    
     else:
         #Read the Config file
         config = configparser.ConfigParser()
