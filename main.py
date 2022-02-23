@@ -1,4 +1,3 @@
-from turtle import left
 from win32gui import FindWindow, GetWindowRect
 from pywinauto import Desktop
 import pyperclip, time, sys, random, configparser
@@ -28,7 +27,6 @@ def relbot(action):
         else:return False
     def left_click(x):
         while True:
-            time.sleep(0.7)
             game_region = get_winpos()
             try:
                 x, y = pyautogui.locateCenterOnScreen(img_folder + x, confidence=0.9, region=game_region)
@@ -36,10 +34,11 @@ def relbot(action):
                 time.sleep(0.3)
                 pyautogui.click()
                 break
-            except:pass          
+            except:
+                time.sleep(0.7)
+                pass          
     def right_click(x):
         while True:
-            time.sleep(0.7)
             game_region = get_winpos()
             try:
                 x, y = pyautogui.locateCenterOnScreen(img_folder + x, confidence=0.9, region=game_region)
@@ -47,13 +46,41 @@ def relbot(action):
                 time.sleep(0.3)
                 pyautogui.click(button='right')
                 break
-            except:pass
-        
+            except:
+                time.sleep(0.7)
+                pass
+    def left_click_from(x, coord_x, coord_y):
+        while True:
+            game_region = get_winpos()
+            try:
+                x, y = pyautogui.locateCenterOnScreen(img_folder + x, confidence=0.9, region=game_region)
+                x = x + coord_x
+                y = y + coord_y
+                pyautogui.moveTo(x, y)
+                time.sleep(0.3)
+                pyautogui.click()
+                break
+            except:
+                time.sleep(0.7)
+                pass    
+    def right_click_from(x, coord_x, coord_y):
+        while True:
+            game_region = get_winpos()
+            try:
+                x, y = pyautogui.locateCenterOnScreen(img_folder + x, confidence=0.9, region=game_region)
+                x = x + coord_x
+                y = y + coord_y
+                pyautogui.moveTo(x, y)
+                time.sleep(0.3)
+                pyautogui.click(button='right')
+                break
+
+            except:
+                time.sleep(0.7)
+                pass
+    
     if action == 'Settings':
-        if itemcheck('1.png'):
-            print('detected')
-            left_click('1.png')
-        else:print("No")
+        pass
 
     elif action == 'Crabs':
         print('crabs')
