@@ -13,7 +13,10 @@ USE AT YOUR OWN RISK
 
 
 __Patch Notes__
-
+_______________________________________________-
+[23/2/2022] 0.4
+-Working on the Crabs Bot
+-some quick fix
 _______________________________________________-
 [23/2/2022] 0.3
 -Runelite Settings Completed

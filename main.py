@@ -1,7 +1,12 @@
 from win32gui import FindWindow, GetWindowRect
 from pywinauto import Desktop
-import pyperclip, time, sys, random, configparser
-import pyautogui
+import pyperclip, time, sys, random, configparser, pyautogui
+
+#Good Sprite:
+#1980 a 1985-1987 a 1994
+#[{"RegionId":6966,"RegionX":3,"RegionY":1,"plane":0,"spriteId":1980,"scale":100},{"RegionId":6966,"RegionX":11,"RegionY":8,"plane":0,"spriteId":1981,"scale":100},{"RegionId":6966,"RegionX":21,"RegionY":5,"plane":0,"spriteId":1982,"scale":100},{"RegionId":6966,"RegionX":33,"RegionY":6,"plane":0,"spriteId":1983,"scale":100},{"RegionId":6966,"RegionX":45,"RegionY":1,"plane":0,"spriteId":1984,"scale":100},{"RegionId":6966,"RegionX":59,"RegionY":0,"plane":0,"spriteId":1985,"scale":100},{"RegionId":6966,"RegionX":57,"RegionY":14,"plane":0,"spriteId":1987,"scale":100},{"RegionId":7222,"RegionX":6,"RegionY":8,"plane":0,"spriteId":1988,"scale":100},{"RegionId":7222,"RegionX":2,"RegionY":24,"plane":0,"spriteId":1989,"scale":100},{"RegionId":7222,"RegionX":4,"RegionY":32,"plane":0,"spriteId":1990,"scale":100},{"RegionId":7222,"RegionX":20,"RegionY":10,"plane":0,"spriteId":1991,"scale":100},{"RegionId":7222,"RegionX":29,"RegionY":16,"plane":0,"spriteId":1992,"scale":100}]
+#Fix RUNELITE opacity (overlay color)
+#Fix healing circle 
 
 def relbot(action):
     #Actual Bot/Automation
@@ -129,10 +134,25 @@ def relbot(action):
         time.sleep(2.7)
         pyautogui.keyUp('up')
         pyautogui.press('ctrl')
+    def crabs():
 
+        list = [1,2,3,4,5,6]
 
+        for x in list:
+            while True:
+                if itemcheck(f'crabs/sprite{x}.png'):
+                    left_click_from(f'crabs/sprite{x}.png', random.randint(0, 15), random.randint(-10, -20))
+                    break
+            while True:
+                #Check Hp
+                #Check Running
+                #Check combat state
+                pass
+                break
+            time.sleep(9)
 
-
+        for x in list[::-1]:
+            print(f'{x} - TEST')
 
     #Bot_Toolkit
     def get_winpos():
@@ -220,17 +240,9 @@ def relbot(action):
         settings()
 
     elif action == 'Crabs':
-        print('crabs')
-
-
-
-
-    
-
-
-
-
-
+        pyautogui.alert("Make sure you're on the beach infront of the stash\n& click OK")
+        time.sleep(1.5)
+        crabs()
 
 
 
@@ -323,12 +335,7 @@ if __name__ == '__main__':
                     time.sleep(0.7)
                     pass
         
-
-        #left_click_from('rl_settings/sprite_display.png', 160, 0)
-        #left_click_from('rl_settings/sprite_showonmap.png', 165, 0)
-        #left_click_from('rl_settings/sprite_showtiles.png', 160, 0)
-        left_click_from('rl_settings/sprite_importexport.png', 160, 0)
-
+        pass
         
     else:
         #Read the Config file
