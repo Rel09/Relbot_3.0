@@ -9,6 +9,9 @@ This software is made to run on Private server
 This is not intended to run on live OSRS server
 USE AT YOUR OWN RISK
 ***********************************************
+100% DETECTED ON LIVE
+YOU WILL LOOSE YOUR ACCOUNT
+
 
 
 
