@@ -1,6 +1,6 @@
 from win32gui import FindWindow, GetWindowRect
 from pywinauto import Desktop
-import pyperclip, time, sys, random, configparser, pyautogui
+import pyperclip, time, sys, random, configparser, pyautogui, datetime
 
 #Good Sprite:
 #1980 a 1985-1987 a 1994
@@ -136,25 +136,142 @@ def relbot(action):
         pyautogui.press('ctrl')
     def crabs():
 
-        list = [1,2,3,4,5,6]
+        #Read the Config file
+        try:
+            crab_roll = config['ROLL']['crab_ending']
+            crab_pause_x, crab_pause_y = config['ROLL']['crab_ending_rand_pause'].split(',')
+        except:print('ERROR [Config.ini - crab_roll or cran_ending_rand_pause\nPlease contact Bill gates]')
 
-        for x in list:
-            while True:
-                if itemcheck(f'crabs/sprite{x}.png'):
-                    left_click_from(f'crabs/sprite{x}.png', random.randint(0, 15), random.randint(-10, -20))
-                    break
-            while True:
-                #Check Hp
-                #Check Running
-                #Check combat state
-                pass
-                break
-            time.sleep(9)
 
-        for x in list[::-1]:
-            print(f'{x} - TEST')
+
+        first_loop = True
+        while True:
+            idle_switch = True
+
+            #From the Bank to the Chest
+            for x in range(1, 7):                    
+                if x != 1 or first_loop:
+                    print(f'{x} - From Bank to Chest')
+                    while True:
+                        if itemcheck(f'crabs/sprite{x}.png'):
+                            left_click_from(f'crabs/sprite{x}.png', random.randint(-5, 5), random.randint(-15, -7))
+                            break
+                        else:print(f'Not detecting [sprite{x}]')
+
+                        #Check Running
+                        if itemcheck('player_state/ready_run.png'):
+                            left_click('player_state/ready_run.png')
+                            pass
+
+                    time_Start = datetime.datetime.now()
+                    while r_timer(time_Start, 12) or not player_InFight('crabs/player_state/fight_crab.png'):
+                        pass
+                        #Check Hp
+
+            #When at the chest, Roll Dice to IDLE
+            roll_dice = random.randint(1, int(crab_roll))
+            print(f'Roll Dice[{roll_dice}]')
+
+            #If the Dice roll 1 or 2
+            if roll_dice == 1 or roll_dice == 2:
+                print(f"Going to IDLE Spot {roll_dice}")
+                for x in range(1, 4):
+                    while True:
+                        if itemcheck(f'crabs/rand_ending\{roll_dice}\{x}.png'):
+                            left_click_from(f'crabs/rand_ending\{roll_dice}\{x}.png', random.randint(-5, 5), random.randint(-5, 5))
+                            print('9 second pause ..[DEV]')
+                            time.sleep(9)
+                            break
+                        else:print(f'Not detecting [sprite{x}]')
+                        
+                        #Check Running
+                        if itemcheck('player_state/ready_run.png'):
+                            left_click('player_state/ready_run.png')
+
+                #Pause in IDLE spot
+                _crabpause = random.randint(int(crab_pause_x), int(crab_pause_y))
+                print(f'Pause [{_crabpause} seconds]')
+                idle_switch = False
+                time.sleep(_crabpause)
+
+                #From IDLE spot to chest
+                for x in range(2, 0, -1):
+                    print(f'{x} - From IDLE to Chest')
+                    while True:
+                        if itemcheck(f'crabs/rand_ending\{roll_dice}\{x}.png'):
+                            left_click_from(f'crabs/rand_ending\{roll_dice}\{x}.png', random.randint(-5, 5), random.randint(-5, 5))
+                            time.sleep(7)
+                            break
+                        else:print(f'Not detecting [sprite{x}]')
+
+                        #Check Running
+                        if itemcheck('player_state/ready_run.png'):
+                            left_click('player_state/ready_run.png')
+
+
+            #From chest to Bank
+            first_loop = False
+            for x in range(6, 0, -1):
+                if x != 6 or not idle_switch:
+                    print(f'{x} - From Chest to Bank')
+                    while True:
+                        if itemcheck(f'crabs/sprite{x}.png'):
+                            left_click_from(f'crabs/sprite{x}.png', random.randint(0, 5), random.randint(-15, -10))
+                            break
+                        else:print(f'Not detecting [sprite{x}]')
+
+                        #Check Running
+                        if itemcheck('player_state/ready_run.png'):
+                            left_click('player_state/ready_run.png')
+                            pass
+
+                    time_Start = datetime.datetime.now()
+                    while r_timer(time_Start, 12) or not player_InFight('crabs/player_state/fight_crab.png'):
+                        pass
+                        #Check Hp
+            
+
+
+
+
+
+
+                
 
     #Bot_Toolkit
+    def player_InFight(top_left_enemy_name):
+        global p_state
+        
+        #If the player status is Idle, check if we detect a fight
+        if p_state == 'idle':
+                if itemcheck(top_left_enemy_name):
+                    p_state = 'fight'
+                    print(f"Player_State[{p_state.upper()}]")
+                    return False
+                #No fight detected, return True
+                return True
+        
+        #If the player status is FIGHT, check if fight is over
+        elif p_state == 'fight':
+            if not itemcheck(top_left_enemy_name):
+                    p_state = "idle"
+                    print(f"Player_State[{p_state.upper()}]")
+                    return True
+            return False
+    def r_timer(time_Start, wait_time_in_second):
+        global _x
+        #time_Start = datetime.datetime.now()
+        #pass time_Start as Arg
+        time_End = datetime.datetime.now()
+        z = datetime.timedelta(hours=(time_End.hour - time_Start.hour),minutes=(time_End.minute - time_Start.minute), seconds=(time_End.second- time_Start.second))
+        z = int(str(z.total_seconds()).replace(".0", ""))
+        if z > wait_time_in_second:
+            return False
+        if _x != z:
+            print(f'{z}/{wait_time_in_second} seconds')
+            _x = z
+        return True
+
     def get_winpos():
         windows = Desktop(backend="uia").windows()
         for w in windows:
@@ -334,10 +451,24 @@ if __name__ == '__main__':
                 except:
                     time.sleep(0.7)
                     pass
-        
-        pass
-        
+        def r_timer(time_Start, wait_time_in_second):
+            #time_Start = datetime.datetime.now()
+            #pass time_Start as Arg
+            time_End = datetime.datetime.now()
+            z = datetime.timedelta(hours=(time_End.hour - time_Start.hour),minutes=(time_End.minute - time_Start.minute), seconds=(time_End.second- time_Start.second))
+            z = int(str(z.total_seconds()).replace(".0", ""))
+            print(z)
+            if z >= wait_time_in_second:
+                return False
+            return True
+        while True:
+            roll_dice = random.randint(1, 3)
+            print(roll_dice)
     else:
+        #Rand Var
+        _x = -1
+        p_state = 'idle'
+
         #Read the Config file
         config = configparser.ConfigParser()
         config.read('config.ini')
@@ -346,6 +477,7 @@ if __name__ == '__main__':
         if img_folder == '':
             pyautogui.alert('You need to set a folder in Config.ini\n\nProcess has been terminated')
             quit()
+        
             
 
         botlist = ["Runelite Settings", "Crab Farming"]
