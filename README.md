@@ -9,13 +9,15 @@ This software is made to run on Private server
 This is not intended to run on live OSRS server
 USE AT YOUR OWN RISK
 ***********************************************
-100% DETECTED ON LIVE
-YOU WILL LOOSE YOUR ACCOUNT
-
 
 
 
 __Patch Notes__
+_______________________________________________-
+[24/2/2022] 0.5
+-Crabs in debugging phase
+-Added path ending randomization
+-Added alot of new functions
 _______________________________________________-
 [23/2/2022] 0.4
 -Working on the Crabs Bot
