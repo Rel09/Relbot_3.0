@@ -4,7 +4,7 @@ import pyperclip, time, sys, random, configparser, pyautogui, datetime
 
 #Good Sprite:
 #1980 a 1985-1987 a 1994
-#[{"RegionId":6966,"RegionX":3,"RegionY":1,"plane":0,"spriteId":1980,"scale":100},{"RegionId":6966,"RegionX":11,"RegionY":8,"plane":0,"spriteId":1981,"scale":100},{"RegionId":6966,"RegionX":21,"RegionY":5,"plane":0,"spriteId":1982,"scale":100},{"RegionId":6966,"RegionX":33,"RegionY":6,"plane":0,"spriteId":1983,"scale":100},{"RegionId":6966,"RegionX":45,"RegionY":1,"plane":0,"spriteId":1984,"scale":100},{"RegionId":6966,"RegionX":59,"RegionY":0,"plane":0,"spriteId":1985,"scale":100},{"RegionId":6966,"RegionX":57,"RegionY":14,"plane":0,"spriteId":1987,"scale":100},{"RegionId":7222,"RegionX":6,"RegionY":8,"plane":0,"spriteId":1988,"scale":100},{"RegionId":7222,"RegionX":2,"RegionY":24,"plane":0,"spriteId":1989,"scale":100},{"RegionId":7222,"RegionX":4,"RegionY":32,"plane":0,"spriteId":1990,"scale":100},{"RegionId":7222,"RegionX":20,"RegionY":10,"plane":0,"spriteId":1991,"scale":100},{"RegionId":7222,"RegionX":29,"RegionY":16,"plane":0,"spriteId":1992,"scale":100}]
+#[{"RegionId":6966,"RegionX":3,"RegionY":1,"plane":0,"spriteId":1980,"scale":100},{"RegionId":6966,"RegionX":11,"RegionY":8,"plane":0,"spriteId":1981,"scale":100},{"RegionId":6966,"RegionX":21,"RegionY":5,"plane":0,"spriteId":1982,"scale":100},{"RegionId":6966,"RegionX":33,"RegionY":6,"plane":0,"spriteId":1983,"scale":100},{"RegionId":6966,"RegionX":59,"RegionY":0,"plane":0,"spriteId":1985,"scale":100},{"RegionId":6966,"RegionX":57,"RegionY":14,"plane":0,"spriteId":1987,"scale":100},{"RegionId":6966,"RegionX":45,"RegionY":1,"plane":0,"spriteId":1993,"scale":100}]
 #Fix RUNELITE opacity (overlay color)
 #Fix healing circle 
 
@@ -138,11 +138,10 @@ def relbot(action):
 
         #Read the Config file
         try:
-            crab_roll = config['ROLL']['crab_ending']
-            crab_pause_x, crab_pause_y = config['ROLL']['crab_ending_rand_pause'].split(',')
-        except:print('ERROR [Config.ini - crab_roll or cran_ending_rand_pause\nPlease contact Bill gates]')
-
-
+            crab_roll = config['Crab Bot']['crab_ending']
+            crab_pause_x, crab_pause_y = config['Crab Bot']['crab_ending_rand_pause'].split(',')
+            print(f'{crab_pause_x}{crab_pause_y}')
+        except:print(f'{now_time()} ERROR [Config.ini - crab_roll or cran_ending_rand_pause\nPlease contact Bill gates]')
 
         first_loop = True
         while True:
@@ -151,12 +150,12 @@ def relbot(action):
             #From the Bank to the Chest
             for x in range(1, 7):                    
                 if x != 1 or first_loop:
-                    print(f'{x} - From Bank to Chest')
+                    print(f'{now_time()} {x} - From Bank to Chest')
                     while True:
                         if itemcheck(f'crabs/sprite{x}.png'):
                             left_click_from(f'crabs/sprite{x}.png', random.randint(-5, 5), random.randint(-15, -7))
                             break
-                        else:print(f'Not detecting [sprite{x}]')
+                        else:print(f'{now_time()} Not detecting [sprite{x}]')
 
                         #Check Running
                         if itemcheck('player_state/ready_run.png'):
@@ -170,11 +169,11 @@ def relbot(action):
 
             #When at the chest, Roll Dice to IDLE
             roll_dice = random.randint(1, int(crab_roll))
-            print(f'Roll Dice[{roll_dice}]')
+            print(f'{now_time()} Roll Dice[{roll_dice}]')
 
             #If the Dice roll 1 or 2
             if roll_dice == 1 or roll_dice == 2:
-                print(f"Going to IDLE Spot {roll_dice}")
+                print(f"{now_time()} Going to IDLE Spot {roll_dice}")
                 for x in range(1, 4):
                     while True:
                         if itemcheck(f'crabs/rand_ending\{roll_dice}\{x}.png'):
@@ -182,7 +181,7 @@ def relbot(action):
                             print('9 second pause ..[DEV]')
                             time.sleep(9)
                             break
-                        else:print(f'Not detecting [sprite{x}]')
+                        else:print(f'{now_time()} Not detecting [sprite{x}]')
                         
                         #Check Running
                         if itemcheck('player_state/ready_run.png'):
@@ -190,7 +189,7 @@ def relbot(action):
 
                 #Pause in IDLE spot
                 _crabpause = random.randint(int(crab_pause_x), int(crab_pause_y))
-                print(f'Pause [{_crabpause} seconds]')
+                print(f'{now_time()} Pause [{_crabpause} seconds]')
                 idle_switch = False
                 time.sleep(_crabpause)
 
@@ -202,23 +201,24 @@ def relbot(action):
                             left_click_from(f'crabs/rand_ending\{roll_dice}\{x}.png', random.randint(-5, 5), random.randint(-5, 5))
                             time.sleep(7)
                             break
-                        else:print(f'Not detecting [sprite{x}]')
+                        else:print(f'{now_time()} Not detecting [sprite{x}]')
 
                         #Check Running
                         if itemcheck('player_state/ready_run.png'):
                             left_click('player_state/ready_run.png')
 
-
             #From chest to Bank
             first_loop = False
+
             for x in range(6, 0, -1):
                 if x != 6 or not idle_switch:
-                    print(f'{x} - From Chest to Bank')
+                    print(f'{now_time()} {x} - From Chest to Bank')
+                    
                     while True:
                         if itemcheck(f'crabs/sprite{x}.png'):
                             left_click_from(f'crabs/sprite{x}.png', random.randint(0, 5), random.randint(-15, -10))
                             break
-                        else:print(f'Not detecting [sprite{x}]')
+                        else:print(f'{now_time()} Not detecting [sprite{x}]')
 
                         #Check Running
                         if itemcheck('player_state/ready_run.png'):
@@ -228,16 +228,9 @@ def relbot(action):
                     time_Start = datetime.datetime.now()
                     while r_timer(time_Start, 12) or not player_InFight('crabs/player_state/fight_crab.png'):
                         pass
-                        #Check Hp
-            
-
-
-
-
-
-
-                
-
+    def oak_tree():
+        pass
+                            #Check Hp
     #Bot_Toolkit
     def player_InFight(top_left_enemy_name):
         global p_state
@@ -246,7 +239,7 @@ def relbot(action):
         if p_state == 'idle':
                 if itemcheck(top_left_enemy_name):
                     p_state = 'fight'
-                    print(f"Player_State[{p_state.upper()}]")
+                    print(f"{now_time()} Player_State[{p_state.upper()}]")
                     return False
                 #No fight detected, return True
                 return True
@@ -255,11 +248,11 @@ def relbot(action):
         elif p_state == 'fight':
             if not itemcheck(top_left_enemy_name):
                     p_state = "idle"
-                    print(f"Player_State[{p_state.upper()}]")
+                    print(f"{now_time()} Player_State[{p_state.upper()}]")
                     return True
             return False
     def r_timer(time_Start, wait_time_in_second):
-        global _x
+
         #time_Start = datetime.datetime.now()
         #pass time_Start as Arg
         time_End = datetime.datetime.now()
@@ -267,11 +260,12 @@ def relbot(action):
         z = int(str(z.total_seconds()).replace(".0", ""))
         if z > wait_time_in_second:
             return False
-        if _x != z:
-            print(f'{z}/{wait_time_in_second} seconds')
-            _x = z
-        return True
 
+        return True
+    def now_time():
+        t = time.localtime()
+        current_time = time.strftime("%H:%M:%S", t)
+        return f'[{current_time}]'
     def get_winpos():
         windows = Desktop(backend="uia").windows()
         for w in windows:
@@ -280,7 +274,7 @@ def relbot(action):
                 window_handle = FindWindow(None, bor)
                 win_position = GetWindowRect(window_handle)
                 return win_position
-        pyautogui.alert('No Runelite as been found')
+        pyautogui.alert('No Runelite as been found\n\nPlease call Bill Gates')
         quit()
     def itemcheck(x):
         game_region = get_winpos()
@@ -361,13 +355,12 @@ def relbot(action):
         time.sleep(1.5)
         crabs()
 
-
-
 if __name__ == '__main__':
 
     dev = 0
     if dev == 1:
-        #TESTING ---------- Bot_Toolkit
+        #This Section is purely for Testing & implementing
+        #Bot_Toolkit
         img_folder = 'img/'
         def get_winpos():
             windows = Desktop(backend="uia").windows()
@@ -377,7 +370,7 @@ if __name__ == '__main__':
                     window_handle = FindWindow(None, bor)
                     win_position = GetWindowRect(window_handle)
                     return win_position
-            pyautogui.alert('No Runelite as been found')
+            pyautogui.alert('No Runelite as been found\n\nPlease call Bill gates')
             quit()
         def itemcheck(x):
             game_region = get_winpos()
@@ -394,7 +387,6 @@ if __name__ == '__main__':
             while True:
                 game_region = get_winpos()
                 try:
-                    print('test')
                     x, y = pyautogui.locateCenterOnScreen(img_folder + x, confidence=0.9, region=game_region)
                     pyautogui.moveTo(x, y)
                     time.sleep(0.3)
@@ -424,7 +416,6 @@ if __name__ == '__main__':
                 game_region = get_winpos()
                 try:
                     x, y = pyautogui.locateCenterOnScreen(img_folder + x, confidence=0.9, region=game_region)
-                    print(x,y)
                     x = x + coord_x
                     y = y + coord_y
                     pyautogui.moveTo(x, y)
@@ -457,29 +448,27 @@ if __name__ == '__main__':
             time_End = datetime.datetime.now()
             z = datetime.timedelta(hours=(time_End.hour - time_Start.hour),minutes=(time_End.minute - time_Start.minute), seconds=(time_End.second- time_Start.second))
             z = int(str(z.total_seconds()).replace(".0", ""))
-            print(z)
+
             if z >= wait_time_in_second:
                 return False
             return True
-        while True:
-            roll_dice = random.randint(1, 3)
-            print(roll_dice)
+        def now_time():
+            now = datetime.datetime.now()
+            curr_time = now.strftime("%H:%M:%S")
+            return [f'{curr_time}']
+        #-------------------
+        print(now_time())
     else:
-        #Rand Var
-        _x = -1
+        #Player state, Shared Variable
         p_state = 'idle'
-
-        #Read the Config file
+        #Reading the Config file
         config = configparser.ConfigParser()
         config.read('config.ini')
         config.sections()
         img_folder = config['IMAGE FOLDER']['folder']
         if img_folder == '':
-            pyautogui.alert('You need to set a folder in Config.ini\n\nProcess has been terminated')
+            pyautogui.alert('You need to set an Image folder in Config.ini\n\nPlease call Bill gates')
             quit()
-        
-            
-
         botlist = ["Runelite Settings", "Crab Farming"]
         while True:
             bot = pyautogui.confirm(text='Choose bot action', title='RelBot', buttons=botlist)

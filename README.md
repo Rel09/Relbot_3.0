@@ -13,6 +13,13 @@ USE AT YOUR OWN RISK
 
 
 __Patch Notes__
+
+[25/2/2022] 0.6
+-Crabs Bot Completed
+    -Need to implement documentation
+-Cleaning up code & Format
+-Added Relbot.bat, this ease the execution on windows, use with a shortcut on desktop
+-Added Time on print, Also reduced Print Flood
 _______________________________________________-
 [24/2/2022] 0.5
 -Crabs in debugging phase
