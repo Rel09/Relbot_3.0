@@ -13,7 +13,11 @@ USE AT YOUR OWN RISK
 
 
 __Patch Notes__
-
+_______________________________________________-
+[25/2/2022] 0.7
+-Changed files Format
+-Preparing new functions for next automations
+_______________________________________________-
 [25/2/2022] 0.6
 -Crabs Bot Completed
     -Need to implement documentation
