@@ -1,6 +1,5 @@
 from tools import *
 
-#Fix RUNELITE opacity (overlay color)
 #Fix healing circle 
 
 def relbot(action):
@@ -19,6 +18,15 @@ def relbot(action):
                 time.sleep(0.5)
             else: break
         reset_handler()
+        #----Overlay color
+        left_click('rl_settings/runelite_overlaysetttings.png')
+        left_click_from('rl_settings/runelite_overlaycolor.png',100, 0)
+        left_click_from('rl_settings/runelite_overlaycolor_opacity.png', 320, 0)
+        pyautogui.hotkey('ctrl', 'a')
+        write('255', 1)
+        left_click_from('rl_settings/runelite_overlaycolor_opacity.png', 350, -350)
+        left_click('rl_settings/runelite_overlaysetttings.png')
+        #--Windows Settings
         left_click('rl_settings/runelite_windowsetttings.png')
         left_click_from('rl_settings/runelite_gamesize.png', 50, 0)
         pyautogui.hotkey('ctrl', 'a')
@@ -90,17 +98,21 @@ def relbot(action):
         time.sleep(2.7)
         pyautogui.keyUp('up')
         pyautogui.press('ctrl')
-    def crabs():
-
+    def crabs(): 
         #Read the Config file
         try:
-            crab_pause_x, crab_pause_y = read_config('config.ini', 'Crab Bot', 'crab_ending')
-            crab_roll = read_config = read_config('config.ini', 'Crab Bot', 'crab_ending_rand_pause')
-        except:print(f'{now_time()} ERROR [Config.ini - crab_roll or cran_ending_rand_pause\nPlease contact Bill gates]')
+            crab_roll = read_config('config.ini', 'Crab Bot', 'crab_ending')
+            crab_pause_x, crab_pause_y  = read_config('config.ini', 'Crab Bot', 'crab_ending_rand_pause').split(',')
+        except:print(f'{now_time()} ERROR [Config.ini - crab_roll or crab_ending_rand_pause')
 
+        bot = pyautogui.confirm(text='Import Sprite?', title='RelBot', buttons=['yes', 'no'])
+        if bot == 'yes':
+            import_sprite('[{"RegionId":6966,"RegionX":3,"RegionY":1,"plane":0,"spriteId":1980,"scale":100},{"RegionId":6966,"RegionX":11,"RegionY":8,"plane":0,"spriteId":1981,"scale":100},{"RegionId":6966,"RegionX":21,"RegionY":5,"plane":0,"spriteId":1982,"scale":100},{"RegionId":6966,"RegionX":33,"RegionY":6,"plane":0,"spriteId":1983,"scale":100},{"RegionId":6966,"RegionX":59,"RegionY":0,"plane":0,"spriteId":1985,"scale":100},{"RegionId":6966,"RegionX":57,"RegionY":14,"plane":0,"spriteId":1987,"scale":100},{"RegionId":6966,"RegionX":45,"RegionY":1,"plane":0,"spriteId":1993,"scale":100}]')
+        
         first_loop = True
         while True:
             idle_switch = True
+            toggle_run()
 
             #From the Bank to the Chest
             for x in range(1, 7):                    
@@ -112,23 +124,20 @@ def relbot(action):
                             break
                         else:print(f'{now_time()} Not detecting [sprite{x}]')
 
-                        #Check Running
-                        if itemcheck('player_state/ready_run.png'):
-                            left_click('player_state/ready_run.png')
-                            pass
+                        toggle_run()
 
                     time_Start = datetime.datetime.now()
-                    while r_timer(time_Start, 12) or not player_InFight('crabs/player_state/fight_crab.png'):
+                    while r_timer(time_Start, 12) or not player_InFight('player_state/crab.png'):
                         pass
                         #Check Hp
 
             #When at the chest, Roll Dice to IDLE
             roll_dice = random.randint(1, int(crab_roll))
-            print(f'{now_time()} Roll Dice[{roll_dice}]')
+            print(f'{now_time()} Roll Dice [ {roll_dice} ]')
 
             #If the Dice roll 1 or 2
             if roll_dice == 1 or roll_dice == 2:
-                print(f"{now_time()} Going to IDLE Spot {roll_dice}")
+                print(f"{now_time()} Going to IDLE Spot [ {roll_dice} ]")
                 for x in range(1, 4):
                     while True:
                         if itemcheck(f'crabs/rand_ending\{roll_dice}\{x}.png'):
@@ -138,9 +147,7 @@ def relbot(action):
                             break
                         else:print(f'{now_time()} Not detecting [sprite{x}]')
                         
-                        #Check Running
-                        if itemcheck('player_state/ready_run.png'):
-                            left_click('player_state/ready_run.png')
+                        toggle_run()
 
                 #Pause in IDLE spot
                 _crabpause = random.randint(int(crab_pause_x), int(crab_pause_y))
@@ -150,7 +157,7 @@ def relbot(action):
 
                 #From IDLE spot to chest
                 for x in range(2, 0, -1):
-                    print(f'{x} - From IDLE to Chest')
+                    print(f'{now_time()} Path[{x}] - From IDLE to Chest')
                     while True:
                         if itemcheck(f'crabs/rand_ending\{roll_dice}\{x}.png'):
                             left_click_from(f'crabs/rand_ending\{roll_dice}\{x}.png', random.randint(-5, 5), random.randint(-5, 5))
@@ -158,16 +165,14 @@ def relbot(action):
                             break
                         else:print(f'{now_time()} Not detecting [sprite{x}]')
 
-                        #Check Running
-                        if itemcheck('player_state/ready_run.png'):
-                            left_click('player_state/ready_run.png')
+                        toggle_run()
 
             #From chest to Bank
             first_loop = False
 
             for x in range(6, 0, -1):
                 if x != 6 or not idle_switch:
-                    print(f'{now_time()} {x} - From Chest to Bank')
+                    print(f'{now_time()} Path[{x}] - From Chest to Bank')
                     
                     while True:
                         if itemcheck(f'crabs/sprite{x}.png'):
@@ -175,20 +180,31 @@ def relbot(action):
                             break
                         else:print(f'{now_time()} Not detecting [sprite{x}]')
 
-                        #Check Running
-                        if itemcheck('player_state/ready_run.png'):
-                            left_click('player_state/ready_run.png')
-                            pass
+                        toggle_run()
 
                     time_Start = datetime.datetime.now()
-                    while r_timer(time_Start, 12) or not player_InFight('crabs/player_state/fight_crab.png'):
+                    while r_timer(time_Start, 12) or not player_InFight('player_state/crab.png'):
                         pass
-                            #Check Hp
+    def chicken():
+        bot = pyautogui.confirm(text='Import Sprite and Config?', title='RelBot', buttons=['yes', 'no'])
+        if bot == 'yes':
+            select_target('Chicken')
+            import_sprite('[{"RegionId":12851,"RegionX":22,"RegionY":35,"plane":0,"spriteId":1983,"scale":100}]')
+
+        while True:
+            left_click_from('chicken/location.png', 30, 15)
+            time.sleep(3)
+            engage_npc('Chicken')                        
     #User Options
     if action == 'Settings':
         pyautogui.alert('Make sure Runelite is opened\n& click OK')
         time.sleep(1.5)
         settings()
+
+    elif action == 'Chicken':
+        pyautogui.alert("Make sure you're near the chicken spot\nNorth-Right of Lumbridge\n& click OK")
+        time.sleep(1.5)
+        chicken()
     elif action == 'Crabs':
         pyautogui.alert("Make sure you're on the beach infront of the stash\n& click OK")
         time.sleep(1.5)
@@ -198,11 +214,24 @@ if __name__ == '__main__':
 
     dev = 0
     if dev == 1:
-        pass
+        relbot('Chicken')
+
+        
+
+
+
+
+
+        #left_click_from('chicken/location.png', 30, 15)
+
+        
+
+
         #This Section is purely for Testing & implementing
+        pass
     else:
         
-        botlist = ["Runelite Settings", "Crab Farming"]
+        botlist = ["Runelite Settings", "Chicken Farming", "Crab Farming"]
         while True:
             bot = pyautogui.confirm(text='Choose bot action', title='RelBot', buttons=botlist)
 
@@ -213,6 +242,9 @@ if __name__ == '__main__':
             # Crab Farming
             elif bot == "Crab Farming":
                 relbot('Crabs')
+
+            elif bot == "Chicken Farming":
+                relbot('Chicken')
 
             # If X is clicked
             elif bot == None:
