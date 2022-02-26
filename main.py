@@ -11,46 +11,7 @@ import pyperclip, time, sys, random, configparser, pyautogui, datetime
 def relbot(action):
     #Actual Bot/Automation
     def settings():
-        def settings_handler():
-            while True:
-                #If settings is not Opened
-                if itemcheck('rl_settings/unselected_settings.png'):
-                    left_click('rl_settings/unselected_settings.png')
-                #If we are in a tab, close it
-                if itemcheck('rl_settings/back_arrow_textbox.png'):
-                    left_click('rl_settings/back_arrow_textbox.png')
-                #if there is text already, remove it
-                if itemcheck('rl_settings/red_x_textbox.png'):
-                    left_click('rl_settings/red_x_textbox.png')
-                #if we finally detect the empty text box
-                if itemcheck('rl_settings/empty_textbox.png'):
-                    left_click('rl_settings/empty_textbox.png')
-                    break
-        def switch_handler(state):
-            if state == 1:
-                if itemcheck('rl_settings/off_switch.png'):
-                    left_click('rl_settings/off_switch.png')
-            elif state == 0:
-                if itemcheck('rl_settings/on_switch.png'):
-                    left_click('rl_settings/on_switch.png')
-        def reset_handler():
-            #Reset
-            left_click('rl_settings/reset_button.png')
-            #Reset? Yes
-            left_click('rl_settings/reset_yes.png')
-        def install_plugin(plugin_name):
-            left_click('rl_settings/plugin_hub.png')
-            left_click('rl_settings/plugin_emptytextbox.png')
-            write(plugin_name, 1)
-            time.sleep(3)
-            while True:
-                if itemcheck('rl_settings/plugin_install.png'):
-                    left_click('rl_settings/plugin_install.png')
-                    time.sleep(2)
-                elif itemcheck('rl_settings/plugin_remove.png'):
-                    break
-                time.sleep(1)
-            left_click('rl_settings/back_arrow_textbox2.png')
+
         #Take care of opening the Settings
         settings_handler()
 
@@ -228,10 +189,48 @@ def relbot(action):
                     time_Start = datetime.datetime.now()
                     while r_timer(time_Start, 12) or not player_InFight('crabs/player_state/fight_crab.png'):
                         pass
-    def oak_tree():
-        pass
                             #Check Hp
-    #Bot_Toolkit
+    #Bot Toolkit
+    def switch_handler(state):
+        if state == 1:
+            if itemcheck('rl_settings/off_switch.png'):
+                left_click('rl_settings/off_switch.png')
+        elif state == 0:
+            if itemcheck('rl_settings/on_switch.png'):
+                left_click('rl_settings/on_switch.png')
+    def reset_handler():
+        #Reset
+        left_click('rl_settings/reset_button.png')
+        #Reset? Yes
+        left_click('rl_settings/reset_yes.png')
+    def settings_handler():
+        while True:
+            #If settings is not Opened
+            if itemcheck('rl_settings/unselected_settings.png'):
+                left_click('rl_settings/unselected_settings.png')
+            #If we are in a tab, close it
+            if itemcheck('rl_settings/back_arrow_textbox.png'):
+                left_click('rl_settings/back_arrow_textbox.png')
+            #if there is text already, remove it
+            if itemcheck('rl_settings/red_x_textbox.png'):
+                left_click('rl_settings/red_x_textbox.png')
+            #if we finally detect the empty text box
+            if itemcheck('rl_settings/empty_textbox.png'):
+                left_click('rl_settings/empty_textbox.png')
+                break    
+    def install_plugin(plugin_name):
+            left_click('rl_settings/plugin_hub.png')
+            left_click('rl_settings/plugin_emptytextbox.png')
+            write(plugin_name, 1)
+            time.sleep(3)
+            while True:
+                if itemcheck('rl_settings/plugin_install.png'):
+                    left_click('rl_settings/plugin_install.png')
+                    time.sleep(2)
+                elif itemcheck('rl_settings/plugin_remove.png'):
+                    break
+                time.sleep(1)
+            left_click('rl_settings/back_arrow_textbox2.png')  
     def player_InFight(top_left_enemy_name):
         global p_state
         
@@ -344,12 +343,74 @@ def relbot(action):
             except:
                 time.sleep(0.7)
                 pass
-    
+    def select_target(target_name):                                           
+        settings_handler()
+        write('npc indicators', 1)
+        left_click_from('rl_settings/npc_indicator_settings.png', 120, 0)
+        reset_handler()
+        switch_handler(1)
+        left_click_from('rl_settings/npcindic_highlighthull.png', 170, 0)
+        left_click('rl_settings/npcindic_npc2highlight.png')
+        write(target_name, 1)
+        left_click_from('rl_settings/npcindic_drawname.png', 170, 0)
+        settings_handler()
+        #Closing settings
+        left_click('rl_settings/selected_settings.png')
+        
+        
+        
+        
+        pass
+    def addons_switch(addons_name, switch):
+        settings_handler()
+        write(addons_name.lower())
+        #need to have the same name in addons_switch folder
+        left_click_from(f"rl_settings/addons_switch/{addons_name}.png", 80, 0)
+        #0 for closed, 1 for open
+        switch_handler(int(switch))
+        settings_handler()
+        left_click('rl_settings/selected_settings.png')
+    def open_inventary():
+        left_click('g_settings/inventary.png')
+    def open_skilltab():
+        left_click('g_settings/skilltab.png')
+    def open_logoutmenu():
+        left_click('g_settings/logoutbutton.png')
+    def open_combattab():
+        left_click('g_settings/combattab.png')
+    def auto_relog():
+        #Retrieve the account info
+        accinfo = config['User Infos']['location']
+        if accinfo != '':
+            #Loading user info
+            config = configparser.ConfigParser()	
+            config.read(accinfo)
+            config.sections()
+            acc_name = config['User Infos']['account']
+            acc_pass = config['User Infos']['password']
+            #Set it back, for later use
+            config.read('config.ini')
+            config = configparser.ConfigParser()
+            config.sections()
+            print(f'[{acc_name}] - Account Loaded')
+
+            #If we detect the first button
+            if itemcheck('login/disconnected1.png'):
+                left_click('login/disconnected1.png')
+                time.sleep(1.5)
+
+            #If we detect the second one, Relog
+            if itemcheck('login/disconnected2.png'):
+                left_click('login/disconnected2.png')
+                time.sleep(1.5)
+
+            left_click_from('login/login.png', 50, 0)
+    def use_item(item_picture, action):
+        pass    
     if action == 'Settings':
         pyautogui.alert('Make sure Runelite is opened\n& click OK')
         time.sleep(1.5)
         settings()
-
     elif action == 'Crabs':
         pyautogui.alert("Make sure you're on the beach infront of the stash\n& click OK")
         time.sleep(1.5)
@@ -362,6 +423,34 @@ if __name__ == '__main__':
         #This Section is purely for Testing & implementing
         #Bot_Toolkit
         img_folder = 'img/'
+
+        def switch_handler(state):
+            if state == 1:
+                if itemcheck('rl_settings/off_switch.png'):
+                    left_click('rl_settings/off_switch.png')
+            elif state == 0:
+                if itemcheck('rl_settings/on_switch.png'):
+                    left_click('rl_settings/on_switch.png')
+        def reset_handler():
+            #Reset
+            left_click('rl_settings/reset_button.png')
+            #Reset? Yes
+            left_click('rl_settings/reset_yes.png')
+        def settings_handler():
+            while True:
+                #If settings is not Opened
+                if itemcheck('rl_settings/unselected_settings.png'):
+                    left_click('rl_settings/unselected_settings.png')
+                #If we are in a tab, close it
+                if itemcheck('rl_settings/back_arrow_textbox.png'):
+                    left_click('rl_settings/back_arrow_textbox.png')
+                #if there is text already, remove it
+                if itemcheck('rl_settings/red_x_textbox.png'):
+                    left_click('rl_settings/red_x_textbox.png')
+                #if we finally detect the empty text box
+                if itemcheck('rl_settings/empty_textbox.png'):
+                    left_click('rl_settings/empty_textbox.png')
+                    break    
         def get_winpos():
             windows = Desktop(backend="uia").windows()
             for w in windows:
@@ -421,7 +510,7 @@ if __name__ == '__main__':
                     pyautogui.moveTo(x, y)
                     time.sleep(0.3)
                     pyautogui.click()
-                    #pyautogui.moveTo(1, 1)
+                    pyautogui.moveTo(1, 1)
                     break
                 except:
                     time.sleep(0.7)
@@ -456,8 +545,50 @@ if __name__ == '__main__':
             now = datetime.datetime.now()
             curr_time = now.strftime("%H:%M:%S")
             return [f'{curr_time}']
-        #-------------------
-        print(now_time())
+        def select_target(target_name):                               
+            settings_handler()
+            write('npc indicators', 1)
+            left_click_from('rl_settings/npc_indicator_settings.png', 120, 0)
+            reset_handler()
+            switch_handler(1)
+            left_click_from('rl_settings/npcindic_highlighthull.png', 170, 0)
+            left_click('rl_settings/npcindic_npc2highlight.png')
+            write(target_name, 1)
+            left_click_from('rl_settings/npcindic_drawname.png', 170, 0)
+            settings_handler()
+            #Closing settings
+            left_click('rl_settings/selected_settings.png')
+        def addons_switch(addons_name, switch):
+            settings_handler()
+            write(addons_name.lower(), 1)
+            #need to have the same name in addons_switch folder
+            left_click_from(f"rl_settings/addons_switch/{addons_name}.png", 80, 0)
+            #0 for closed, 1 for open
+            switch_handler(int(switch))
+            settings_handler()
+            left_click('rl_settings/selected_settings.png')
+            #-------------------
+            
+        
+        left_click_from('login/login.png', 35, 0)
+        while not itemcheck('login/empty_user.png'):
+            for x in range(15):
+                pyautogui.press('backspace')
+        print('done')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     else:
         #Player state, Shared Variable
         p_state = 'idle'
@@ -469,6 +600,9 @@ if __name__ == '__main__':
         if img_folder == '':
             pyautogui.alert('You need to set an Image folder in Config.ini\n\nPlease call Bill gates')
             quit()
+        
+        
+        
         botlist = ["Runelite Settings", "Crab Farming"]
         while True:
             bot = pyautogui.confirm(text='Choose bot action', title='RelBot', buttons=botlist)
@@ -485,4 +619,3 @@ if __name__ == '__main__':
             elif bot == None:
                 print("Exit")
                 quit()
-

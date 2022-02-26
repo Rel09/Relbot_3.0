@@ -20,6 +20,8 @@ __Patch Notes__
 -Cleaning up code & Format
 -Added Relbot.bat, this ease the execution on windows, use with a shortcut on desktop
 -Added Time on print, Also reduced Print Flood
+-Added some more functions
+-Going to split this into multiple .py files
 _______________________________________________-
 [24/2/2022] 0.5
 -Crabs in debugging phase
