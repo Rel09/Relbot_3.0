@@ -306,7 +306,7 @@ def use_item(item_picture, action):
             pyautogui.rightClick()
             left_click(f'PLAYER_INVENTARY/options/{options}.png')
     #Open inventary(if not in a bank), Locate & Count items on screen
-    if not itemcheck('common/bank_opened.png'):
+    if not itemcheck('common/bank_opened.png') and not itemcheck(item_picture.lower()):
         open_inventary()
     amount = 0
     location_list = []
