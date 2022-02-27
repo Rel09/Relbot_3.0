@@ -23,6 +23,8 @@ ___________YOU WILL 100% GET BANNED____________
 
 
 _________________________Patch Notes___________________________
+_______________________________________________-[26/2/2022] 0.9
+-First debugging phase of Tutorial island
 _______________________________________________-[26/2/2022] 0.8
 -Added Chicken bot
 -Tutorial island in progress
