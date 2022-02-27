@@ -4,7 +4,7 @@ from tools import *
 
 def relbot(action):
     #Actual Bot/Automation
-    def settings():
+    def settings(_mode_):
 
         #Take care of opening the Settings
         settings_handler()
@@ -83,16 +83,17 @@ def relbot(action):
         #Closing settings
         left_click('rl_settings/selected_settings.png')
 
-
-        #--------------------- IN GAME SETTINGS ----------------------------
-        while True:
-            if itemcheck('g_settings/unselected_settings.png'):
-                left_click('g_settings/unselected_settings.png')
-            elif itemcheck('g_settings/selected_settings.png'):
-                break        
-        left_click('g_settings/unselected_screen.png')   
-        left_click('g_settings/game_format_arrow.png')
-        left_click('g_settings/resizable_classic.png')
+        #0 is for Tutorial island, Skip in-game settings
+        if _mode_ == 1:
+            #--------------------- IN GAME SETTINGS ----------------------------
+            while True:
+                if itemcheck('g_settings/unselected_settings.png'):
+                    left_click('g_settings/unselected_settings.png')
+                elif itemcheck('g_settings/selected_settings.png'):
+                    break        
+            left_click('g_settings/unselected_screen.png')   
+            left_click('g_settings/game_format_arrow.png')
+            left_click('g_settings/resizable_classic.png')
         left_click('g_settings/north.png')
         pyautogui.keyDown('up')
         time.sleep(2.7)
@@ -195,11 +196,214 @@ def relbot(action):
             left_click_from('chicken/location.png', 30, 15)
             time.sleep(3)
             engage_npc('Chicken')                        
+    def tutorial_island(__username):
+        path = 'Bot/tutorial_island/'
+        #----------------First Page, Typing Username-----------------
+        while True:
+            #Click on Display name, then write name
+            left_click_from(f'{path}1nickname.png', 0, 55)
+            time.sleep(0.7)
+
+            pyautogui.press('backspace', presses=200)
+            write(__username, 0)
+            left_click(f'{path}2lookupname.png')
+            time.sleep(2)
+            
+            if itemcheck(f'{path}2.1notavailable.png'):
+                print(f'{now_time()} Cannot use this username, Please try another one')
+                continue
+
+            elif itemcheck(f'{path}2.2available.png'):
+                print(f'{now_time()} {__username} is Valid')
+                break
+
+        left_click(f'{path}3setname.png')
+        time.sleep(2)
+
+        #----------------Second page, Character page---------------  
+        
+        #----Design list (head,jaw,torso,arms,hands,legs,feet)
+        list_design = [30, 60, 97, 130, 170, 200, 235]
+        #Left or Right
+        list_design_side = [-50, 60]
+
+        for x in list_design:
+            roll = random.randint(1,2)
+            if roll == 1:
+                side = list_design_side[0]
+            else:
+                side = list_design_side[1]
+
+            roll = random.randint(1,8)
+            for each in range(roll):
+                #Might change this for something faster, like click=x)
+                left_click_from(f'{path}4design.png', side, x)
+
+        #------Colour list (Hair,Torso,Legs,Feet,Skin)
+        list_colour = [30, 65, 100, 135, 170]
+        list_color_side = [-50, 50]
+
+        for x in list_colour:
+            roll = random.randint(1,2)
+            if roll == 1:
+                side = list_color_side[0]
+            else:
+                side = list_color_side[1]
+
+            roll = random.randint(1,8)
+            for each in range(roll):
+                #Might change this for something faster, like click=x)
+                left_click_from(f'{path}5colour.png', side, x)
+
+        #Choose the sex of the character
+        roll = random.randint(1,2)
+        if roll == 1:
+            side = list_color_side[0]
+        else:
+            side = list_color_side[1]
+
+        left_click_from(f'{path}5colour.png', side, 237)
+        left_click(f'{path}6confirm.png')
+        #-------------------------------Tutorial Island Start
+        #-----------------------Set the screen correctly
+        settings(0)
+        
+        #Target Gielinor Guide
+        while True:
+            left_click(f'{path}7gielinor_guide.png')
+            time.sleep(random.randint(2,4))
+            if itemcheck(f'common/click_here_to_continue.png'):
+                break
+
+        #Click here to Continue x5
+        for x in range(6):
+            left_click(f'common/click_here_to_continue.png')
+            time.sleep(random.randint(2,4))
+
+        #I am an experienced player lol
+        left_click(f'{path}8iamexperienced.png')
+
+        #Click here to Continue x3
+        for x in range(2):
+            left_click(f'common/click_here_to_continue.png')
+            time.sleep(random.randint(1,3))
+
+        #Settings icon
+        left_click(f'{path}9settings.png')
+
+
+        #Target Gielinor Guide
+        while True:
+            left_click(f'{path}7gielinor_guide.png')
+            time.sleep(random.randint(2,4))
+            if itemcheck(f'common/click_here_to_continue.png'):
+                break
+
+        #Click here to Continue x2
+        for x in range(1):
+            left_click(f'common/click_here_to_continue.png')
+            time.sleep(random.randint(1,3))
+
+        sprite = ''
+        #NEED TO LOAD SPRITE
+
+        #Select the next NPC
+        select_target('Survival Expert')
+
+        #Open the door
+        left_click(f'{path}10door.png')
+
+        #Get close to the next npc
+        left_click(f'{path}11map.png')
+
+        #Target Survival Expert
+        while True:
+            left_click(f'{path}12survival_expert.png')
+            time.sleep(random.randint(2,4))
+            if itemcheck(f'common/click_here_to_continue.png'):
+                break
+
+        #Click here to Continue x3
+        for x in range(2):
+            left_click(f'common/click_here_to_continue.png')
+            time.sleep(random.randint(1,3))
+
+        #Click on the inventary
+        left_click(f'{path}13inventary.png')
+
+        #Click on Fish
+        left_click(f'{path}14fish.png')
+
+        #Next to continue
+        left_click(f'common/click_here_to_continue.png')
+
+        #Click on Stats
+        left_click(f'{path}15stats.png')
+
+        #Target Survival Expert
+        while True:
+            left_click(f'{path}12survival_expert.png')
+            time.sleep(random.randint(2,4))
+            if itemcheck(f'common/click_here_to_continue.png'):
+                break
+
+        #Click here to Continue x3
+        for x in range(2):
+            left_click(f'common/click_here_to_continue.png')
+            time.sleep(random.randint(1,3))
+        #--------------Make fire camp
+        
+        #Click on tree
+        left_click(f'{path}16tree.png')
+        time.sleep(6)
+
+        #Cut some more
+        left_click(f'{path}16tree.png')
+
+        #Next to continue
+        left_click(f'common/click_here_to_continue.png')
+
+        #User the Tinder Box
+        use_item('PLAYER_INVENTARY/tinderbox.png','use')
+
+        #Use with the wood
+        left_click('PLAYER_INVENTARY/wood.png')
+
+        #-----------------------Cooking
+
+        #Select shrimp
+        use_item('PLAYER_INVENTARY/shrimp.png', 'use')
+
+        #Click on fire
+        left_click(f'{path}17fire.png')
+
+        #Click to continue
+        left_click(f'common/click_here_to_continue.png')
+        
+
+        #------------------- Moving to next spot
+
+        #Get close to the gate
+        left_click(f'{path}18map.png')
+
+        #Open the Gate
+        left_click_from(f'{path}19sprite.png', -20, 0)
+
+        #Get close to the house
+        left_click(f'{path}20map.png')
+
+        #prepare for the next npc
+        select_target('Master Chef')
+
+        #Open the door
+        left_click(f'{path}21opendoor.png')
+
+
     #User Options
     if action == 'Settings':
         pyautogui.alert('Make sure Runelite is opened\n& click OK')
         time.sleep(1.5)
-        settings()
+        settings(0)
 
     elif action == 'Chicken':
         pyautogui.alert("Make sure you're near the chicken spot\nNorth-Right of Lumbridge\n& click OK")
@@ -212,21 +416,36 @@ def relbot(action):
 
 if __name__ == '__main__':
 
-    dev = 0
+    dev = 1
     if dev == 1:
-        relbot('Chicken')
+        #auto_relog()
+        #relbot('Chicken')
+        #tutorial_island()
+        path = 'Bot/tutorial_island/'
+
+       # use_item('PLAYER_INVENTARY/shrimp.png', 'use')
+
+        select_target('Master Chef')
+
+        
+       
+        
+
+        
+        
+        
+
+
 
         
 
+
+    
 
 
 
 
         #left_click_from('chicken/location.png', 30, 15)
-
-        
-
-
         #This Section is purely for Testing & implementing
         pass
     else:

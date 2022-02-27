@@ -1,59 +1,50 @@
 ```
+----------
 Relbot 3.0
 ----------
+
 Little bot for Runelite using Image detection
+
+Featuring:
+    -Crab Farming Bot
+    -Chicken Farming Bot
+    -Tutorial Island Bot
 
 
 ***********************************************
 This software is made to run on Private server
 This is not intended to run on live OSRS server
-USE AT YOUR OWN RISK
+_____________USE AT YOUR OWN RISK______________
+___________YOU WILL 100% GET BANNED____________
 ***********************************************
 
 
 
-__Patch Notes__
-_______________________________________________-
-[25/2/2022] 0.7
+
+
+_________________________Patch Notes___________________________
+_______________________________________________-[26/2/2022] 0.8
+-Added Chicken bot
+-Tutorial island in progress
+_______________________________________________-[25/2/2022] 0.7
 -Changed files Format
--Preparing new functions for next automations
-_______________________________________________-
-[25/2/2022] 0.6
+_______________________________________________-[25/2/2022] 0.6
+-Added Relbot.bat
 -Crabs Bot Completed
-    -Need to implement documentation
 -Cleaning up code & Format
--Added Relbot.bat, this ease the execution on windows, use with a shortcut on desktop
--Added Time on print, Also reduced Print Flood
--Added some more functions
--Going to split this into multiple .py files
-_______________________________________________-
-[24/2/2022] 0.5
+_______________________________________________-[24/2/2022] 0.5
 -Crabs in debugging phase
 -Added path ending randomization
--Added alot of new functions
-_______________________________________________-
-[23/2/2022] 0.4
+_______________________________________________-[23/2/2022] 0.4
+-Some quick fix
 -Working on the Crabs Bot
--some quick fix
-_______________________________________________-
-[23/2/2022] 0.3
+_______________________________________________-[23/2/2022] 0.3
 -Runelite Settings Completed
 -Added many others functions
-_______________________________________________-
-[23/2/2022] 0.2
+_______________________________________________-[23/2/2022] 0.2
 -Started doing the Bot/Automation
-    -Runelite Settings in progress
-_______________________________________________-
-[23/2/2022] 0.1
--Rework the entire system (from Relbot 2.0)
-    -get_winpos
-    -itemcheck(x)
-
+_______________________________________________-[23/2/2022] 0.1
+-First few debugging test
 -Added/modified many functions
-    -left_click(x)
-    -right_click(x)
-    -left_click_from(x, coord_x, coord_y)
-    -right_click_from(x, coord_x, coord_y)
-
--First few debugging test with 1.png
+-Rework the entire system (from Relbot 2.0)
 ```
