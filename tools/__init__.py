@@ -22,7 +22,7 @@ def get_winpos():
             window_handle = FindWindow(None, bor)
             win_position = GetWindowRect(window_handle)
             return win_position
-    pyautogui.alert('No Runelite as been found\n\nPlease call Bill Gates')
+    print('No Runelite as been found, Please call Bill Gates')
     quit()
 def reset_handler():
     #Reset
@@ -57,7 +57,7 @@ def read_config(file, title, subtitle):
             config.sections()
             info = config[title][subtitle]
             if info == '':
-                pyautogui.alert(f'{now_time()} You need to set an Image folder in Config.ini')
+                print(f'{now_time()} You need to set an Image folder in Config.ini')
                 quit()
             return info
 
@@ -156,6 +156,21 @@ def player_InFight(top_left_enemy_name):
         return False
 
 #Clicks
+def left_clicks_from(x, coord_x, coord_y, count):
+    while True:
+        game_region = get_winpos()
+        try:
+            x, y = pyautogui.locateCenterOnScreen(img_folder + x, confidence=0.9, region=game_region)
+            x = x + coord_x
+            y = y + coord_y
+            pyautogui.moveTo(x, y)
+            time.sleep(0.3)
+            pyautogui.click(clicks=int(count), interval=0.3)
+            pyautogui.moveTo(game_region[0], game_region[1])
+            break
+        except:
+            time.sleep(0.7)
+            pass    
 def left_click(x):
     while True:
         game_region = get_winpos()
@@ -164,7 +179,7 @@ def left_click(x):
             pyautogui.moveTo(x, y)
             time.sleep(0.3)
             pyautogui.click()
-            pyautogui.moveTo(1, 1)
+            pyautogui.moveTo(game_region[0], game_region[1])
             break
         except:
             time.sleep(0.7)
@@ -177,7 +192,7 @@ def right_click(x):
             pyautogui.moveTo(x, y)
             time.sleep(0.3)
             pyautogui.click(button='right')
-            pyautogui.moveTo(1, 1)
+            pyautogui.moveTo(game_region[0], game_region[1])
             break
         except:
             time.sleep(0.7)
@@ -190,7 +205,7 @@ def right_click_from(x, coord_x, coord_y):
             pyautogui.moveTo(x + coord_x, y + coord_y)
             time.sleep(0.3)
             pyautogui.click(button='right')
-            pyautogui.moveTo(1, 1)
+            pyautogui.moveTo(game_region[0], game_region[1])
             break
 
         except:
@@ -206,7 +221,7 @@ def left_click_from(x, coord_x, coord_y):
             pyautogui.moveTo(x, y)
             time.sleep(0.3)
             pyautogui.click()
-            pyautogui.moveTo(1, 1)
+            pyautogui.moveTo(game_region[0], game_region[1])
             break
         except:
             time.sleep(0.7)
@@ -250,20 +265,19 @@ def auto_relog():
         #Loading user info
         acc_name = read_config(f'{accinfo}','User Infos','account')
         acc_pass = read_config(f'{accinfo}','User Infos','password')
-        print(f'__[{acc_name}]__ - Account Loaded')
+        print(f'[{acc_name}] - Account Loaded')
 
-        while True:
-            for x in range(1, 3):
+        log = True
+        while log:
+            for x in range(2):
                 #If we detect the first button
                 if itemcheck(f'login/disconnected{x}.png'):
-                    if x == 1:
-                        left_click_from(f'login/disconnected{x}.png', 0, 70)
-                    elif x == 2:
+                    if x == 0:
+                        left_click_from(f'login/disconnected{x}.png', 0, 45)
+                    elif x == 1:
                         left_click_from(f'login/disconnected{x}.png', 70, 15)
-                    break
-            break
-
-
+                        log = False
+        
         #Deleting Login email & password
         left_click_from('login/login.png', 50, 0)
         while not itemcheck('login/empty_user.png') and itemcheck('runelite.png'):
@@ -279,12 +293,20 @@ def auto_relog():
         write(f'{acc_pass}', 0)
         left_click('login/login_main.png')
 
-        #Wait until we see the {Click to play}
-        while not itemcheck('login/click2play.png'):
-            #If password is wrong, if user has additional protection, etc
-            pass
-        left_click('login/click2play.png')
-
+        log = True
+        while log:
+            for x in range(3):
+                #If we detect the first button
+                if itemcheck(f'login/click2play{x}.png'):
+                    if x == 0:
+                        left_click('login/click2play{x}.png')
+                    #If it detect the Character Creation windows or Tutorial island Start(no char creation)
+                    elif x == 1 or x == 3:
+                        #Just let log turn False
+                        pass
+                    log = False
+                    
+        print(f"{now_time()} Login Completed")
         #Set back the windows config, just in case
         left_click('g_settings/north.png')
         pyautogui.keyDown('up')

@@ -1,8 +1,6 @@
 from select import select
 from tools import *
 
-#Fix healing circle 
-
 def relbot(action):
     #Actual Bot/Automation
     def settings(_mode_):
@@ -107,8 +105,8 @@ def relbot(action):
             crab_pause_x, crab_pause_y  = read_config('config.ini', 'Crab Bot', 'crab_ending_rand_pause').split(',')
         except:print(f'{now_time()} ERROR [Config.ini - crab_roll or crab_ending_rand_pause')
 
-        bot = pyautogui.confirm(text='Import Sprite?', title='RelBot', buttons=['yes', 'no'])
-        if bot == 'yes':
+        bot = input('Skip initial config? ( Y / N )').lower()
+        if bot != 'y':
             import_sprite('[{"RegionId":6966,"RegionX":3,"RegionY":1,"plane":0,"spriteId":1980,"scale":100},{"RegionId":6966,"RegionX":11,"RegionY":8,"plane":0,"spriteId":1981,"scale":100},{"RegionId":6966,"RegionX":21,"RegionY":5,"plane":0,"spriteId":1982,"scale":100},{"RegionId":6966,"RegionX":33,"RegionY":6,"plane":0,"spriteId":1983,"scale":100},{"RegionId":6966,"RegionX":59,"RegionY":0,"plane":0,"spriteId":1985,"scale":100},{"RegionId":6966,"RegionX":57,"RegionY":14,"plane":0,"spriteId":1987,"scale":100},{"RegionId":6966,"RegionX":45,"RegionY":1,"plane":0,"spriteId":1993,"scale":100}]')
         
         first_loop = True
@@ -188,8 +186,8 @@ def relbot(action):
                     while r_timer(time_Start, 12) or not player_InFight('player_state/crab.png'):
                         pass
     def chicken():
-        bot = pyautogui.confirm(text='Import Sprite and Config?', title='RelBot', buttons=['yes', 'no'])
-        if bot == 'yes':
+        bot = input('Skip initial config? ( Y / N )').lower()
+        if bot != 'y':
             select_target('Chicken')
             import_sprite('[{"RegionId":12851,"RegionX":22,"RegionY":35,"plane":0,"spriteId":1983,"scale":100}]')
 
@@ -197,78 +195,76 @@ def relbot(action):
             left_click_from('chicken/location.png', 30, 15)
             time.sleep(3)
             engage_npc('Chicken')                        
-    def tutorial_island():
+    def tutorial_island(__username,__skipsettings):
         path = 'Bot/tutorial_island/'
-        #----------------First Page, Typing Username-----------------
-        while True:
-            __username = input('Type Username:> ')
-            #Click on Display name, then write name
-            left_click_from(f'{path}1nickname.png', 0, 55)
-            time.sleep(0.7)
+        #----------------First Page, Character Creation-----------------
+        if username != None:
+            while True:
+                #Click on Display name, then write name
+                left_click_from(f'{path}1nickname.png', 0, 55)
+                time.sleep(0.7)
 
-            pyautogui.press('backspace', presses=200)
-            write(__username, 0)
-            left_click(f'{path}2lookupname.png')
+                pyautogui.press('backspace', presses=200)
+                write(__username, 0)
+                left_click(f'{path}2lookupname.png')
+                time.sleep(2)
+                
+                if itemcheck(f'{path}2.1notavailable.png'):
+                    print(f'{now_time()} Cannot use this username, Please try another one')
+                    __username = input('Enter Character username :> ')
+                    continue
+
+                elif itemcheck(f'{path}2.2available.png'):
+                    #print(f'{now_time()} {__username} is valid')
+                    break
+
+            left_click(f'{path}3setname.png')
             time.sleep(2)
+
+            #----------------Second page, Character page---------------  
             
-            if itemcheck(f'{path}2.1notavailable.png'):
-                print(f'{now_time()} Cannot use this username, Please try another one')
-                continue
+            #----Design list (head,jaw,torso,arms,hands,legs,feet)
+            list_design = [30, 60, 97, 130, 170, 200, 235]
+            #Left or Right
+            list_design_side = [-50, 60]
 
-            elif itemcheck(f'{path}2.2available.png'):
-                print(f'{now_time()} {__username} is Valid')
-                break
+            for x in list_design:
+                roll = random.randint(1,2)
+                if roll == 1:
+                    side = list_design_side[0]
+                else:
+                    side = list_design_side[1]
 
-        left_click(f'{path}3setname.png')
-        time.sleep(2)
+                roll = random.randint(1,8)
+                left_clicks_from(f'{path}4design.png', side, x, roll)
 
-        #----------------Second page, Character page---------------  
-        
-        #----Design list (head,jaw,torso,arms,hands,legs,feet)
-        list_design = [30, 60, 97, 130, 170, 200, 235]
-        #Left or Right
-        list_design_side = [-50, 60]
+            #------Colour list (Hair,Torso,Legs,Feet,Skin)
+            list_colour = [30, 65, 100, 135, 170]
+            list_color_side = [-50, 50]
 
-        for x in list_design:
-            roll = random.randint(1,2)
-            if roll == 1:
-                side = list_design_side[0]
-            else:
-                side = list_design_side[1]
+            for x in list_colour:
+                roll = random.randint(1,2)
+                if roll == 1:
+                    side = list_color_side[0]
+                else:
+                    side = list_color_side[1]
 
-            roll = random.randint(1,8)
-            for each in range(roll):
-                #Might change this for something faster, like click=x)
-                left_click_from(f'{path}4design.png', side, x)
+                roll = random.randint(1,8)
+                left_clicks_from(f'{path}5colour.png', side, x, roll)
 
-        #------Colour list (Hair,Torso,Legs,Feet,Skin)
-        list_colour = [30, 65, 100, 135, 170]
-        list_color_side = [-50, 50]
-
-        for x in list_colour:
+            #Choose the sex of the character
             roll = random.randint(1,2)
             if roll == 1:
                 side = list_color_side[0]
             else:
                 side = list_color_side[1]
 
-            roll = random.randint(1,8)
-            for each in range(roll):
-                #Might change this for something faster, like click=x)
-                left_click_from(f'{path}5colour.png', side, x)
-
-        #Choose the sex of the character
-        roll = random.randint(1,2)
-        if roll == 1:
-            side = list_color_side[0]
-        else:
-            side = list_color_side[1]
-
-        left_click_from(f'{path}5colour.png', side, 237)
-        left_click(f'{path}6confirm.png')
+            left_click_from(f'{path}5colour.png', side, 237)
+            left_click(f'{path}6confirm.png')
         #-------------------------------Tutorial Island Start
         #-----------------------Set the screen correctly
-        settings(0)
+        if __skipsettings != 'y':
+            settings(0)
         
         select_target('Gielinor Guide')
 
@@ -279,132 +275,95 @@ def relbot(action):
             if itemcheck(f'common/click_here_to_continue.png'):
                 break
 
-        #Click here to Continue x5
-        for x in range(4):
+        #Click here to Continue x6
+        for x in range(5):
             left_click(f'common/click_here_to_continue.png')
-            time.sleep(random.randint(2,4))
+            time.sleep(random.randint(2,3))
 
         #I am an experienced player lol
         left_click(f'{path}8iamexperienced.png')
 
         #Click here to Continue x3
-        for x in range(2):
+        for x in range(3):
             left_click(f'common/click_here_to_continue.png')
-            time.sleep(random.randint(2,4))
+            time.sleep(random.randint(2,3))
 
         #Settings icon
         left_click(f'{path}9settings.png')
 
-
         #Target Gielinor Guide
         while True:
             left_click(f'{path}7gielinor_guide.png')
-            time.sleep(random.randint(2,4))
+            time.sleep(random.randint(2,3))
             if itemcheck(f'common/click_here_to_continue.png'):
                 break
 
         #Click here to Continue x2
-        for x in range(1):
+        for x in range(2):
             left_click(f'common/click_here_to_continue.png')
-            time.sleep(random.randint(2,4))
+            time.sleep(random.randint(2,3))
 
-        import_sprite('[{"RegionId":12336,"RegionX":26,"RegionY":35,"plane":0,"spriteId":1980,"scale":100},{"RegionId":12336,"RegionX":30,"RegionY":23,"plane":0,"spriteId":1982,"scale":100},{"RegionId":12336,"RegionX":27,"RegionY":23,"plane":0,"spriteId":1985,"scale":100},{"RegionId":12336,"RegionX":18,"RegionY":19,"plane":0,"spriteId":1989,"scale":100},{"RegionId":12336,"RegionX":7,"RegionY":12,"plane":0,"spriteId":1991,"scale":100},{"RegionId":12336,"RegionX":4,"RegionY":10,"plane":0,"spriteId":1970,"scale":100},{"RegionId":12336,"RegionX":1,"RegionY":18,"plane":0,"spriteId":1971,"scale":100},{"RegionId":12336,"RegionX":2,"RegionY":34,"plane":0,"spriteId":1956,"scale":100},{"RegionId":12336,"RegionX":4,"RegionY":48,"plane":0,"spriteId":1957,"scale":100},{"RegionId":12336,"RegionX":14,"RegionY":54,"plane":0,"spriteId":1964,"scale":100},{"RegionId":12336,"RegionX":17,"RegionY":47,"plane":0,"spriteId":1968,"scale":100}]')
+        import_sprite('[{"RegionId":12336,"RegionX":26,"RegionY":35,"plane":0,"spriteId":1980,"scale":100},{"RegionId":12336,"RegionX":30,"RegionY":23,"plane":0,"spriteId":1982,"scale":100},{"RegionId":12336,"RegionX":18,"RegionY":19,"plane":0,"spriteId":1989,"scale":100},{"RegionId":12336,"RegionX":7,"RegionY":12,"plane":0,"spriteId":1991,"scale":100},{"RegionId":12336,"RegionX":4,"RegionY":10,"plane":0,"spriteId":1970,"scale":100},{"RegionId":12336,"RegionX":1,"RegionY":18,"plane":0,"spriteId":1971,"scale":100},{"RegionId":12336,"RegionX":2,"RegionY":34,"plane":0,"spriteId":1956,"scale":100},{"RegionId":12336,"RegionX":4,"RegionY":48,"plane":0,"spriteId":1957,"scale":100},{"RegionId":12336,"RegionX":14,"RegionY":54,"plane":0,"spriteId":1964,"scale":100},{"RegionId":12336,"RegionX":17,"RegionY":47,"plane":0,"spriteId":1968,"scale":100}]')
 
         #Select the next NPC
         select_target('Survival Expert')
 
+        #Get close to the door
+        left_click_from(f'{path}10door1.png', -5, 0)
+        time.sleep(random.randint(3, 4))
+
         #Open the door
         left_click(f'{path}10door.png')
+        time.sleep(2)
+
+        #------------------------------ next area
 
         #Get close to the next npc
         left_click(f'{path}11map.png')
+        time.sleep(random.randint(9, 10))
 
         #Target Survival Expert
         while True:
             left_click(f'{path}12survival_expert.png')
-            time.sleep(random.randint(2,4))
-            if itemcheck(f'common/click_here_to_continue.png'):
+            time.sleep(random.randint(2, 3))
+            if itemcheck(f'{path}12survival_expert_confirm.png'):
+                left_click_from(f'{path}11map.png', 1, 1)
+                time.sleep(random.randint(2, 3))
                 break
 
         #Click here to Continue x3
-        for x in range(2):
+        for x in range(3):
             left_click(f'common/click_here_to_continue.png')
-            time.sleep(random.randint(2,4))
+            time.sleep(random.randint(2, 3))
+
+        #Get close to the Fishs
+        left_click_from(f'{path}11map.png', -5, 5)
+        time.sleep(random.randint(3, 4))
 
         #Click on the inventary
         left_click(f'{path}13inventary.png')
+        time.sleep(1)
 
-        #Click on Fish
-        left_click(f'{path}14fish.png')
+        #Target Fish
+        while True:
+            left_click(f'{path}14fish.png')
+            time.sleep(random.randint(5, 6))
+            if itemcheck(f'{path}14fish_confirm.png'):
+                left_click_from(f'{path}11map.png', 0, 10)
+                time.sleep(random.randint(3, 4))
+                break
 
         #Next to continue
         left_click(f'common/click_here_to_continue.png')
+        time.sleep(2)
 
         #Click on Stats
         left_click(f'{path}15stats.png')
+        time.sleep(1)
 
         #Target Survival Expert
         while True:
             left_click(f'{path}12survival_expert.png')
-            time.sleep(random.randint(2,4))
-            if itemcheck(f'common/click_here_to_continue.png'):
-                break
-
-        #Click here to Continue x3
-        for x in range(2):
-            left_click(f'common/click_here_to_continue.png')
-            time.sleep(random.randint(2,4))
-        #--------------Make fire camp
-        
-        #Click on tree
-        left_click(f'{path}16tree.png')
-        time.sleep(6)
-
-        #Cut some more
-        left_click(f'{path}16tree.png')
-
-        #Next to continue
-        left_click(f'common/click_here_to_continue.png')
-
-        #User the Tinder Box
-        use_item('PLAYER_INVENTARY/tinderbox.png','use')
-
-        #Use with the wood
-        left_click('PLAYER_INVENTARY/wood.png')
-
-        #-----------------------Cooking
-
-        #Select shrimp
-        use_item('PLAYER_INVENTARY/shrimp.png', 'use')
-
-        #Click on fire
-        left_click(f'{path}17fire.png')
-
-        #Click to continue
-        left_click(f'common/click_here_to_continue.png')
-        
-
-        #------------------- Moving to next spot
-
-        #Get close to the gate
-        left_click(f'{path}18map.png')
-
-        #Open the Gate
-        left_click_from(f'{path}19sprite.png', -20, 0)
-
-        #Get close to the house
-        left_click(f'{path}20map.png')
-
-        #prepare for the next npc
-        select_target('Master Chef')
-
-        #Open the door
-        left_click(f'{path}21opendoor.png')
-
-        #SET NPC BACKGROUND TO BLACK
-        #Target Master Chef
-        while True:
-            left_click(f'{path}22masterchief.png')
             time.sleep(random.randint(2,4))
             if itemcheck(f'common/click_here_to_continue.png'):
                 break
@@ -414,6 +373,72 @@ def relbot(action):
             left_click(f'common/click_here_to_continue.png')
             time.sleep(random.randint(2,4))
 
+        #--------------Make fire camp
+        
+        #Get closer to the tree
+        left_click(f'{path}11map.png')
+        time.sleep(random.randint(4, 5))
+
+        #Click on tree
+        left_click(f'{path}16tree.png')
+        time.sleep(random.randint(6, 7))
+
+        #Click on the inventary
+        left_click(f'{path}13inventary.png')
+
+        #User the Tinder Box
+        use_item('PLAYER_INVENTARY/tinderbox.png','use')
+        time.sleep(random.randint(1, 2))
+
+        #Use with the wood
+        left_click('PLAYER_INVENTARY/wood.png')
+        time.sleep(random.randint(1, 2))
+
+        #Select shrimp
+        use_item('PLAYER_INVENTARY/shrimp.png', 'use')
+        time.sleep(random.randint(1, 2))
+
+        #Click on fire
+        left_click(f'{path}17fire.png')
+
+        #Click to continue
+        input('393 - 1')
+        left_click(f'common/click_here_to_continue.png')
+        
+        #------------------- Moving to next spot
+
+        #Get close to the gate
+        left_click(f'{path}18map.png')
+        time.sleep(random.randint(6, 7))
+
+        #Open the Gate
+        left_click_from(f'{path}19sprite.png', -20, 0)
+        time.sleep(random.randint(2, 3))
+
+        #Get close to the house
+        left_click(f'{path}20map.png')
+        time.sleep(random.randint(6, 7))
+
+        #prepare for the next npc
+        select_target('Master Chef')
+
+        #Open the door
+        left_click(f'{path}21opendoor.png')
+        time.sleep(random.randint(2, 4))
+        #SET NPC BACKGROUND TO BLACK
+        #Target Master Chef
+        while True:
+            left_click(f'{path}22masterchief.png')
+            time.sleep(random.randint(2,3))
+            if itemcheck(f'common/click_here_to_continue.png'):
+                break
+
+        #Click here to Continue x3
+        input('423 - 3')
+        for x in range(3):
+            left_click(f'common/click_here_to_continue.png')
+            time.sleep(random.randint(2,3))
+
         #Mix the Flour
         use_item('PLAYER_INVENTARY/flour.png', 'use')
 
@@ -422,33 +447,35 @@ def relbot(action):
 
         #Get closer to the sprite
         left_click(f'{path}23map.png')
-        time.sleep(5)
+        time.sleep(random.randint(4, 6))
 
         #Make bread
         left_click_from(f'{path}24sprite.png', -10, 25)
-        time.sleep(5)
+        time.sleep(random.randint(5, 7))
 
         #Get Closer to the door
         left_click(f'{path}25map.png')
+        time.sleep(random.randint(5, 7))
 
         #Leave the house
         left_click_from(f'{path}26sprite.png', -15, 0)
-        time.sleep(3)
+        time.sleep(random.randint(5, 7))
 
         #Change house 1/3
         left_click(f'{path}27sprite.png')
-        time.sleep(6)
+        time.sleep(random.randint(5, 7))
 
         #Change house 2/3
         left_click(f'{path}28sprite.png')
-        time.sleep(6)
+        time.sleep(random.randint(5, 7))
 
         #Change house 3/3
         left_click(f'{path}29sprite.png')
-        time.sleep(7)
+        time.sleep(random.randint(5, 7))
 
         #Enter the house
         left_click_from(f'{path}30sprite.png',0, 10)
+        time.sleep(random.randint(2, 3))
 
         #Select Quest Guide
         select_target('Quest Guide')
@@ -461,6 +488,7 @@ def relbot(action):
                 break
 
         #Click here to Continue
+        input('475 - 1')
         left_click(f'common/click_here_to_continue.png')
 
         #Click on the Quest page
@@ -474,7 +502,8 @@ def relbot(action):
                 break
 
         #Click here to Continue x6
-        for x in range(7):
+        input('489 - 6')
+        for x in range(6):
             left_click(f'common/click_here_to_continue.png')
             time.sleep(random.randint(1,3))
 
@@ -492,11 +521,11 @@ def relbot(action):
 
         #Get closer to the instructor
         left_click(f'{path}34sprite.png')
-        time.sleep(8)
+        time.sleep(random.randint(7, 8))
 
         #And a little bit closer
         left_click_from(f'{path}34sprite.png', 0, 5)
-        time.sleep(3)
+        time.sleep(random.randint(3, 4))
 
         #Target Mining instructor
         while True:
@@ -506,7 +535,8 @@ def relbot(action):
                 break
 
         #Click here to Continue x5
-        for x in range(4):
+        input('522 - 5')
+        for x in range(5):
             left_click(f'common/click_here_to_continue.png')
             time.sleep(random.randint(1,3))
 
@@ -519,19 +549,19 @@ def relbot(action):
 
         #Get closer to the Tin ore
         left_click_from(f'{path}34sprite.png', 20, 20)
-        time.sleep(8)
+        time.sleep(random.randint(7, 8))
 
         #Get closer to LOven
         left_click_from(f'{path}34sprite.png', -8, 45)
-        time.sleep(5)
+        time.sleep(random.randint(5, 6))
 
         #Use the oven
         left_click(f'{path}38sprite.png')
-        time.sleep(8)
+        time.sleep(random.randint(7, 8))
 
         #And a little bit closer
         left_click_from(f'{path}34sprite.png', 0, 5)
-        time.sleep(3)
+        time.sleep(random.randint(3, 4))
 
         #Target Mining instructor
         while True:
@@ -541,7 +571,8 @@ def relbot(action):
                 break
 
         #Click here to Continue x3
-        for x in range(2):
+        input('558 - 3')
+        for x in range(3):
             left_click(f'common/click_here_to_continue.png')
             time.sleep(random.randint(1,3))
 
@@ -576,7 +607,8 @@ def relbot(action):
                 break
 
         #Click here to Continue x3
-        for x in range(2):
+        input('594 - 3')
+        for x in range(3):
             left_click(f'common/click_here_to_continue.png')
             time.sleep(random.randint(2,4))
         
@@ -600,7 +632,8 @@ def relbot(action):
                 break
 
         #Click here to Continue x2
-        for x in range(1):
+        input('619 - 2')
+        for x in range(2):
             left_click(f'common/click_here_to_continue.png')
             time.sleep(random.randint(2,4))
 
@@ -645,7 +678,8 @@ def relbot(action):
                 break
 
         #Click here to Continue x4
-        for x in range(3):
+        input('665 - 4')
+        for x in range(4):
             left_click(f'common/click_here_to_continue.png')
             time.sleep(random.randint(2,4))
 
@@ -703,7 +737,8 @@ def relbot(action):
         left_click(f'{path}60bank.png')
 
         #Click here to Continue x3
-        for x in range(2):
+        input('724 - 3')
+        for x in range(3):
             left_click(f'common/click_here_to_continue.png')
             time.sleep(random.randint(1,3))
 
@@ -730,7 +765,8 @@ def relbot(action):
                 break
             
          #Click here to Continue x5
-        for x in range(4):
+        input('752 - 5')
+        for x in range(5):
             left_click(f'common/click_here_to_continue.png')
             time.sleep(random.randint(1,3))
 
@@ -745,7 +781,8 @@ def relbot(action):
                 break
 
         #Click here to Continue x16
-        for x in range(15):
+        input('768 - 16')
+        for x in range(16):
             left_click(f'common/click_here_to_continue.png')
             time.sleep(random.randint(1,3))
 
@@ -781,7 +818,8 @@ def relbot(action):
                 break
 
         #Click here to Continue x2
-        for x in range(1):
+        print('805 - 2')
+        for x in range(2):
             left_click(f'common/click_here_to_continue.png')
             time.sleep(random.randint(1,3))
 
@@ -796,7 +834,8 @@ def relbot(action):
                 break
 
         #Click here to Continue x4
-        for x in range(3):
+        input('820 - 4')
+        for x in range(4):
             left_click(f'common/click_here_to_continue.png')
             time.sleep(random.randint(1,3))
 
@@ -811,7 +850,8 @@ def relbot(action):
                 break
 
         #Click here to Continue x4
-        for x in range(3):
+        input('836 - 4')
+        for x in range(4):
             left_click(f'common/click_here_to_continue.png')
             time.sleep(random.randint(1,3))
 
@@ -842,7 +882,8 @@ def relbot(action):
                 break
 
         #Click here to Continue x2
-        for x in range(1):
+        input('868 - 2')
+        for x in range(2):
             left_click(f'common/click_here_to_continue.png')
             time.sleep(random.randint(1,3))
 
@@ -857,7 +898,8 @@ def relbot(action):
                 break
 
         #Click here to Continue x2
-        for x in range(1):
+        input('884 - 2')
+        for x in range(2):
             left_click(f'common/click_here_to_continue.png')
             time.sleep(random.randint(1,3))
 
@@ -867,28 +909,32 @@ def relbot(action):
         #Selecting Chicken
         select_target('Chicken')    
 
-
-      
-
-
-
     #User Options
     if action == 'Settings':
-        pyautogui.alert('Make sure Runelite is opened\n& click OK')
+        input('Make sure Runelite is opened\n& Click Any key to Continue')
         time.sleep(1.5)
         settings(0)
-
     elif action == 'Chicken':
-        pyautogui.alert("Make sure you're near the chicken spot\nNorth-Right of Lumbridge\n& click OK")
+        input("Make sure you're near the chicken spot\n& Click Any key to Continue")
         time.sleep(1.5)
         chicken()
     elif action == 'Crabs':
-        pyautogui.alert("Make sure you're on the beach infront of the stash\n& click OK")
+        input("Make sure you're near the Beach's Bank\n& Click Any key to Continue")
         time.sleep(1.5)
         crabs()
     elif action == 'Tutorial Island':
-         time.sleep(1.5)
-         tutorial_island()
+        
+        #Skip Character Creation?
+        skip_username = input('Skip Character Creation? ( Y / N ) :> ').lower()
+        if skip_username != 'y':
+            username = input('Enter Character username :> ')
+        else: username = None
+        #Skip Auto-Setting?  
+        skip_settings = input('Skip Auto-Settings? ( Y / N ) :> ').lower()
+        
+        time.sleep(1.5)
+        auto_relog()
+        tutorial_island(username,skip_settings)
 
 if __name__ == '__main__':
 
@@ -896,34 +942,30 @@ if __name__ == '__main__':
     if dev == 1:
         #Ajouter Fill color = black ? pour les NPC
         path = 'Bot/tutorial_island/'
-        
-        
 
-        while True:
-            left_click(f'NPC_ENGAGE/chicken.png')
-            time.sleep(6)
-            if itemcheck(f'{path}55rat.png'):
-                break
-            #Get close to the gate
-            left_click_from(f'{path}51sprite.png', 0, -5)
-            time.sleep(5)
- 
+        left_click_from(f'{path}11map.png', 0, 10)
 
+        
 
 
         #This Section is purely for Testing & implementing
         pass
     else:
-        
-        botlist = ["Runelite Settings","Tutorial Island", "Chicken Farming", "Crab Farming"]
+        botlist = [ "Runelite Settings",
+                    "Tutorial Island",
+                    "Chicken Farming",
+                    "Crab Farming" ]
         while True:
-            bot = pyautogui.confirm(text='Choose bot action', title='RelBot', buttons=botlist)
+            print('\n____Relbot_3.0_____\n')
+            print('Bot options:\n')
+            for i, x in enumerate(botlist):
+                print(f'[{i}] - [{x}]')
+            bot = int(input('\nChoose bot Action:> '))
+            bot = botlist[bot]
 
-            # Runelite Settings
             if bot == "Runelite Settings":
                 relbot('Settings')
 
-            # Crab Farming
             elif bot == "Crab Farming":
                 relbot('Crabs')
 
