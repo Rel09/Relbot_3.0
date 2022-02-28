@@ -228,6 +228,16 @@ def relbot(action):
             #Left or Right
             list_design_side = [-50, 60]
 
+            #Choose the sex of the character
+            roll = random.randint(1,2)
+            if roll == 1:
+                side = list_color_side[0]
+            else:
+                side = list_color_side[1]
+
+            left_click_from(f'{path}5colour.png', side, 237)
+
+
             for x in list_design:
                 roll = random.randint(1,2)
                 if roll == 1:
@@ -252,14 +262,6 @@ def relbot(action):
                 roll = random.randint(1,8)
                 left_clicks_from(f'{path}5colour.png', side, x, roll)
 
-            #Choose the sex of the character
-            roll = random.randint(1,2)
-            if roll == 1:
-                side = list_color_side[0]
-            else:
-                side = list_color_side[1]
-
-            left_click_from(f'{path}5colour.png', side, 237)
             left_click(f'{path}6confirm.png')
         #-------------------------------Tutorial Island Start
         #-----------------------Set the screen correctly
@@ -330,7 +332,7 @@ def relbot(action):
                 break
 
         #Click here to Continue x3
-        for x in range(3):
+        for x in range(2):
             left_click(f'common/click_here_to_continue.png')
             time.sleep(random.randint(2, 3))
 
@@ -941,6 +943,7 @@ def relbot(action):
         tutorial_island(username,skip_settings)
 
 if __name__ == '__main__':
+    pyautogui.FAILSAFE = False
 
     dev = 0
     if dev == 1:
