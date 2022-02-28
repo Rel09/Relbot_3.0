@@ -320,7 +320,7 @@ def relbot(action):
 
         #Get close to the next npc
         left_click(f'{path}11map.png')
-        time.sleep(random.randint(9, 10))
+        time.sleep(random.randint(7, 8))
 
         #Target Survival Expert
         while True:
