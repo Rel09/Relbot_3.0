@@ -327,8 +327,6 @@ def relbot(action):
             left_click(f'{path}12survival_expert.png')
             time.sleep(random.randint(2, 3))
             if itemcheck(f'{path}12survival_expert_confirm.png'):
-                left_click_from(f'{path}11map.png', 1, 1)
-                time.sleep(random.randint(2, 3))
                 break
 
         #Click here to Continue x3
@@ -337,7 +335,7 @@ def relbot(action):
             time.sleep(random.randint(2, 3))
 
         #Get close to the Fishs
-        left_click_from(f'{path}11map.png', -5, 5)
+        left_click_from(f'{path}11map.png', -8, 5)
         time.sleep(random.randint(3, 4))
 
         #Click on the inventary
@@ -347,15 +345,11 @@ def relbot(action):
         #Target Fish
         while True:
             left_click(f'{path}14fish.png')
-            time.sleep(random.randint(5, 6))
+            time.sleep(random.randint(6, 7))
             if itemcheck(f'{path}14fish_confirm.png'):
-                left_click_from(f'{path}11map.png', 0, 10)
+                left_click_from(f'{path}11map.png', 5, 10)
                 time.sleep(random.randint(3, 4))
                 break
-
-        #Next to continue
-        left_click(f'common/click_here_to_continue.png')
-        time.sleep(2)
 
         #Click on Stats
         left_click(f'{path}15stats.png')
@@ -368,15 +362,15 @@ def relbot(action):
             if itemcheck(f'common/click_here_to_continue.png'):
                 break
 
-        #Click here to Continue x3
-        for x in range(3):
+        #Click here to Continue x2
+        for x in range(2):
             left_click(f'common/click_here_to_continue.png')
             time.sleep(random.randint(2,4))
 
         #--------------Make fire camp
         
         #Get closer to the tree
-        left_click(f'{path}11map.png')
+        left_click_from(f'{path}11map.png', 6, -5)
         time.sleep(random.randint(4, 5))
 
         #Click on tree
@@ -400,9 +394,9 @@ def relbot(action):
 
         #Click on fire
         left_click(f'{path}17fire.png')
+        time.sleep(3)
 
         #Click to continue
-        input('393 - 1')
         left_click(f'common/click_here_to_continue.png')
         
         #------------------- Moving to next spot
@@ -425,7 +419,7 @@ def relbot(action):
         #Open the door
         left_click(f'{path}21opendoor.png')
         time.sleep(random.randint(2, 4))
-        #SET NPC BACKGROUND TO BLACK
+
         #Target Master Chef
         while True:
             left_click(f'{path}22masterchief.png')
@@ -434,7 +428,6 @@ def relbot(action):
                 break
 
         #Click here to Continue x3
-        input('423 - 3')
         for x in range(3):
             left_click(f'common/click_here_to_continue.png')
             time.sleep(random.randint(2,3))
@@ -488,7 +481,6 @@ def relbot(action):
                 break
 
         #Click here to Continue
-        input('475 - 1')
         left_click(f'common/click_here_to_continue.png')
 
         #Click on the Quest page
@@ -501,14 +493,14 @@ def relbot(action):
             if itemcheck(f'common/click_here_to_continue.png'):
                 break
 
-        #Click here to Continue x6
-        input('489 - 6')
-        for x in range(6):
+        #Click here to Continue x8
+        for x in range(7):
             left_click(f'common/click_here_to_continue.png')
             time.sleep(random.randint(1,3))
 
         #Get closer to the ladder
-        left_click_from(f'{path}33sprite.png', -20, 0)   
+        left_click_from(f'{path}33sprite.png' -5, 0)   
+        time.sleep(3)
 
         #Get down the Ladder
         left_click_from(f'{path}33sprite.png', -30, -10) 
@@ -593,11 +585,15 @@ def relbot(action):
         #Select the Next NPC
         select_target('Combat Instructor')
 
+        time.sleep(5)
+
         #Open the gate
         left_click_from(f'{path}41sprite.png', 5, 20)
+        time.sleep(2)
 
         #Get closer to the instructor
         left_click_from(f'{path}42sprite.png', 20, 0)
+        time.sleep(7)
 
         #Target Mining instructor
         while True:
@@ -653,6 +649,7 @@ def relbot(action):
 
         #Open the gate
         left_click_from(f'{path}52sprite.png', -15, -20)
+        time.sleep(2)
 
         #kill ehc leader
         engage_npc('Giant rat')
@@ -663,9 +660,11 @@ def relbot(action):
 
         #Open the gate
         left_click_from(f'{path}52sprite.png', -10, -30)
+        time.sleep(2)
 
         #Get closer to the instructor
         left_click_from(f'{path}42sprite.png', 20, 0)
+        time.sleep(4)
 
         #Select the Combat instructor
         select_target('Combat Instructor')
@@ -693,6 +692,7 @@ def relbot(action):
 
         #Get close to the gate
         left_click_from(f'{path}51sprite.png', 0, -5)
+        time.sleep(2)
 
         #Shoot Rat with a Bow
         while True:
@@ -714,6 +714,7 @@ def relbot(action):
 
         #Climb the ladder
         left_click(f'{path}56ladder.png')
+        time.sleep(3)
 
         #-------------------------Next Area
 
@@ -751,6 +752,7 @@ def relbot(action):
 
         #Open the door
         left_click(f'{path}62closeddoor.png')
+        time.sleep(2)
 
         #------------------------------------------Next room
         #Switch target to guide
@@ -867,9 +869,11 @@ def relbot(action):
 
         #Getting closer of the house
         left_click(f'{path}71sprite.png')
+        time.sleep(4)
 
         #Enter the house
         left_click_from(f'{path}71sprite.png', 40, 0)
+        time.sleep(3)
         
         #Target the magic instructor
         select_target('Magic Instructor')
