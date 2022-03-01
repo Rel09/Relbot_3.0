@@ -326,7 +326,7 @@ def relbot(action):
         _x = random.randint(-10, 10)
         _y = random.randint(-10, 10)
         left_click_from(f'{path}11map.png', _x, _y)
-        time.sleep(random.randint(7, 8))
+        time.sleep(random.randint(5, 6))
 
         #Target Survival Expert
         while True:
@@ -403,6 +403,8 @@ def relbot(action):
         left_click('PLAYER_INVENTARY/wood.png')
         time.sleep(random.randint(1, 2))
 
+        input('FIRE TIME')
+
         #Select shrimp
         use_item('PLAYER_INVENTARY/shrimp.png', 'use')
         time.sleep(random.randint(1, 2))
@@ -472,17 +474,15 @@ def relbot(action):
 
         #Change house 2/3
         left_click(f'{path}28sprite.png')
-        time.sleep(random.randint(5, 7))
+        time.sleep(random.randint(6, 7))
 
         #Change house 3/3
         left_click(f'{path}29sprite.png')
-        time.sleep(random.randint(5, 7))
+        time.sleep(random.randint(8, 9))
 
         #Enter the house
         left_click_from(f'{path}30sprite.png',0, 10)
         time.sleep(random.randint(2, 3))
-
-
 
         #Target Quest Guide
         while True:
@@ -553,7 +553,7 @@ def relbot(action):
         left_click_from(f'{path}34sprite.png', 20, 20)
         time.sleep(random.randint(7, 8))
 
-        #Get closer to LOven
+        #Get closer to Oven
         left_click_from(f'{path}34sprite.png', -8, 45)
         time.sleep(random.randint(5, 6))
 

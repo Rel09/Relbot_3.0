@@ -205,7 +205,7 @@ def right_click_from(x, coord_x, coord_y):
         game_region = get_winpos()
         try:
             x, y = pyautogui.locateCenterOnScreen(img_folder + x, confidence=0.9, region=game_region)
-            pyautogui.moveTo(x + coord_x, y + coord_y)
+            pyautogui.moveTo(x + int(coord_x), y + int(coord_y))
             time.sleep(0.3)
             pyautogui.click(button='right')
             pyautogui.moveTo(game_region[0], game_region[1])
@@ -219,8 +219,8 @@ def left_click_from(x, coord_x, coord_y):
         game_region = get_winpos()
         try:
             x, y = pyautogui.locateCenterOnScreen(img_folder + x, confidence=0.9, region=game_region)
-            x = x + coord_x
-            y = y + coord_y
+            x = x + int(coord_x)
+            y = y + int(coord_y)
             pyautogui.moveTo(x, y)
             time.sleep(0.3)
             pyautogui.click()
