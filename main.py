@@ -75,7 +75,7 @@ def relbot(action):
         switch_handler(1)
         left_click_from('rl_settings/sprite_display.png', 160, 0)
         left_click_from('rl_settings/sprite_showonmap.png', 165, 0)
-        left_click_from('rl_settings/sprite_showtiles.png', 160, 0)
+        #left_click_from('rl_settings/sprite_showtiles.png', 160, 0)
         left_click_from('rl_settings/sprite_importexport.png', 160, 0)
         settings_handler()
 
@@ -265,7 +265,7 @@ def relbot(action):
         if __skipsettings != 'y':
             settings(0)
         
-        select_target('Gielinor Guide')
+        select_target('Gielinor Guide,Survival Expert,Master Chef,Quest Guide,Mining Instructor,Combat Instructor,Giant rat,Account Guide,Brother Brace,Magic Instructor,Chicken')
 
         #Target Gielinor Guide
         while True:
@@ -302,29 +302,33 @@ def relbot(action):
             left_click(f'common/click_here_to_continue.png')
             time.sleep(random.randint(2,3))
 
-        import_sprite('[{"RegionId":12336,"RegionX":26,"RegionY":35,"plane":0,"spriteId":1980,"scale":100},{"RegionId":12336,"RegionX":30,"RegionY":23,"plane":0,"spriteId":1982,"scale":100},{"RegionId":12336,"RegionX":18,"RegionY":19,"plane":0,"spriteId":1989,"scale":100},{"RegionId":12336,"RegionX":7,"RegionY":12,"plane":0,"spriteId":1991,"scale":100},{"RegionId":12336,"RegionX":4,"RegionY":10,"plane":0,"spriteId":1970,"scale":100},{"RegionId":12336,"RegionX":1,"RegionY":18,"plane":0,"spriteId":1971,"scale":100},{"RegionId":12336,"RegionX":2,"RegionY":34,"plane":0,"spriteId":1956,"scale":100},{"RegionId":12336,"RegionX":4,"RegionY":48,"plane":0,"spriteId":1957,"scale":100},{"RegionId":12336,"RegionX":14,"RegionY":54,"plane":0,"spriteId":1964,"scale":100},{"RegionId":12336,"RegionX":17,"RegionY":47,"plane":0,"spriteId":1968,"scale":100}]')
+        import_sprite('[{"RegionId":12336,"RegionX":30,"RegionY":23,"plane":0,"spriteId":1982,"scale":100},{"RegionId":12336,"RegionX":18,"RegionY":19,"plane":0,"spriteId":1989,"scale":100},{"RegionId":12336,"RegionX":7,"RegionY":12,"plane":0,"spriteId":1991,"scale":100},{"RegionId":12336,"RegionX":4,"RegionY":10,"plane":0,"spriteId":1970,"scale":100},{"RegionId":12336,"RegionX":1,"RegionY":18,"plane":0,"spriteId":1971,"scale":100},{"RegionId":12336,"RegionX":2,"RegionY":34,"plane":0,"spriteId":1956,"scale":100},{"RegionId":12336,"RegionX":4,"RegionY":48,"plane":0,"spriteId":1957,"scale":100},{"RegionId":12336,"RegionX":14,"RegionY":54,"plane":0,"spriteId":1964,"scale":100},{"RegionId":12336,"RegionX":17,"RegionY":47,"plane":0,"spriteId":1968,"scale":100},{"RegionId":12336,"RegionX":26,"RegionY":36,"plane":0,"spriteId":1961,"scale":100}]')
 
         #Select the next NPC
-        select_target('Survival Expert')
+        #select_target('Survival Expert')
 
-        #Get close to the door
-        left_click_from(f'{path}10door1.png', -5, 0)
-        time.sleep(random.randint(3, 4))
+        #Get closer of the door
+        left_click_from(f'{path}10door.png', -5, 0)
+        time.sleep(3)
 
-        #Open the door
-        left_click(f'{path}10door.png')
+        #Exit the house
+        left_click_from(f'{path}10door1.png', -7, 32)
         time.sleep(2)
+
+
 
         #------------------------------ next area
 
         #Get close to the next npc
-        left_click(f'{path}11map.png')
+        _x = random.randint(-10, 10)
+        _y = random.randint(-10, 10)
+        left_click_from(f'{path}11map.png', _x, _y)
         time.sleep(random.randint(7, 8))
 
         #Target Survival Expert
         while True:
             left_click(f'{path}12survival_expert.png')
-            time.sleep(random.randint(2, 3))
+            time.sleep(random.randint(1, 2))
             if itemcheck(f'{path}12survival_expert_confirm.png'):
                 break
 
@@ -367,7 +371,7 @@ def relbot(action):
         while True:
             left_click(f'{path}12survival_expert.png')
             time.sleep(random.randint(2,4))
-            if itemcheck(f'common/click_here_to_continue.png'):
+            if itemcheck(f'{path}12survival_expert_confirm.png'):
                 break
 
         #Click here to Continue x2
@@ -420,9 +424,6 @@ def relbot(action):
         #Get close to the house
         left_click(f'{path}20map.png')
         time.sleep(random.randint(6, 7))
-
-        #prepare for the next npc
-        select_target('Master Chef')
 
         #Open the door
         left_click(f'{path}21opendoor.png')
@@ -478,8 +479,7 @@ def relbot(action):
         left_click_from(f'{path}30sprite.png',0, 10)
         time.sleep(random.randint(2, 3))
 
-        #Select Quest Guide
-        select_target('Quest Guide')
+
 
         #Target Quest Guide
         while True:
@@ -502,12 +502,12 @@ def relbot(action):
                 break
 
         #Click here to Continue x8
-        for x in range(7):
+        for x in range(8):
             left_click(f'common/click_here_to_continue.png')
-            time.sleep(random.randint(1,3))
+            time.sleep(random.randint(2,3))
 
         #Get closer to the ladder
-        left_click_from(f'{path}33sprite.png' -5, 0)   
+        left_click_from(f'{path}33sprite.png' -5, 0)
         time.sleep(3)
 
         #Get down the Ladder
@@ -516,8 +516,6 @@ def relbot(action):
         #-------------------------------------------Mines
 
         import_sprite('[{"RegionId":12436,"RegionX":9,"RegionY":35,"plane":0,"spriteId":1960,"scale":100},{"RegionId":12436,"RegionX":7,"RegionY":23,"plane":0,"spriteId":1963,"scale":100},{"RegionId":12436,"RegionX":22,"RegionY":32,"plane":0,"spriteId":1964,"scale":100},{"RegionId":12436,"RegionX":29,"RegionY":38,"plane":0,"spriteId":1966,"scale":100},{"RegionId":12436,"RegionX":39,"RegionY":45,"plane":0,"spriteId":1967,"scale":100}]')
-
-        select_target('Mining Instructor')
 
         #Get closer to the instructor
         left_click(f'{path}34sprite.png')
@@ -591,7 +589,7 @@ def relbot(action):
         
         #--------------------------------COMBAT 
         #Select the Next NPC
-        select_target('Combat Instructor')
+        #select_target('Combat Instructor')
 
         time.sleep(5)
 
@@ -649,7 +647,7 @@ def relbot(action):
         left_click(f'{path}50skills.png')
 
         #Get ready for the fight
-        select_target('Giant rat')
+        #select_target('Giant rat')
 
         #Get close to the gate
         left_click_from(f'{path}51sprite.png', 0, -5)
@@ -675,7 +673,7 @@ def relbot(action):
         time.sleep(4)
 
         #Select the Combat instructor
-        select_target('Combat Instructor')
+        #select_target('Combat Instructor')
 
         #Target Combat instructor
         while True:
@@ -691,7 +689,7 @@ def relbot(action):
             time.sleep(random.randint(2,4))
 
         #Get ready for the fight
-        select_target('Giant rat')
+        #select_target('Giant rat')
 
         #Grab Bow & Arrow
         open_inventary()
@@ -764,7 +762,7 @@ def relbot(action):
 
         #------------------------------------------Next room
         #Switch target to guide
-        select_target('Account Guide')
+        #select_target('Account Guide')
 
 
         #Target account guide
@@ -818,7 +816,7 @@ def relbot(action):
         left_click_from(f'{path}66sprite.png', -30, 0)
 
         #Target the NPC
-        select_target('Brother Brace')
+        #select_target('Brother Brace')
 
         #Target Brother brace
         while True:
@@ -884,7 +882,7 @@ def relbot(action):
         time.sleep(3)
         
         #Target the magic instructor
-        select_target('Magic Instructor')
+        #select_target('Magic Instructor')
 
         #Target the Magic Instructor
         while True:
@@ -919,7 +917,7 @@ def relbot(action):
         left_click(f'{path}74spell.png')
 
         #Selecting Chicken
-        select_target('Chicken')    
+        #select_target('Chicken')    
 
     #User Options
     if action == 'Settings':
@@ -956,11 +954,8 @@ if __name__ == '__main__':
         #Ajouter Fill color = black ? pour les NPC
         path = 'Bot/tutorial_island/'
 
-        left_click_from(f'{path}11map.png', 0, 10)
-
+    
         
-
-
         #This Section is purely for Testing & implementing
         pass
     else:
