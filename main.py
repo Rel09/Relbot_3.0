@@ -407,8 +407,6 @@ def relbot(action):
         use_item('PLAYER_INVENTARY/shrimp.png', 'use')
         time.sleep(random.randint(1, 2))
 
-        input('Press Any key to die irl')
-
         #Click on fire
         left_click(f'{path}17fire.png')
         time.sleep(3)
@@ -537,7 +535,6 @@ def relbot(action):
                 break
 
         #Click here to Continue x5
-        input('522 - 5')
         for x in range(5):
             left_click(f'common/click_here_to_continue.png')
             time.sleep(random.randint(1,3))
@@ -551,7 +548,14 @@ def relbot(action):
 
         #Get closer to the Tin ore
         left_click_from(f'{path}34sprite.png', 20, 20)
-        time.sleep(random.randint(7, 8))
+        time.sleep(random.randint(8, 9))
+
+        #Mining
+        while True:
+            left_click(f'{path}37mining.png')
+            time.sleep(7)
+            if itemcheck(f'common/click_here_to_continue.png'):
+                    break
 
         #Get closer to Oven
         left_click_from(f'{path}34sprite.png', -8, 45)
@@ -573,7 +577,6 @@ def relbot(action):
                 break
 
         #Click here to Continue x3
-        input('558 - 3')
         for x in range(3):
             left_click(f'common/click_here_to_continue.png')
             time.sleep(random.randint(1,3))
@@ -587,6 +590,7 @@ def relbot(action):
 
         #Make a dagger
         left_click(f'{path}40dagger.png')
+        time.sleep(8)
 
         #Get to the next zone
         left_click_from(f'{path}34sprite.png', 54, 13)
@@ -595,7 +599,7 @@ def relbot(action):
         #Select the Next NPC
         #select_target('Combat Instructor')
 
-        time.sleep(5)
+        time.sleep(8)
 
         #Open the gate
         left_click_from(f'{path}41sprite.png', 5, 20)
@@ -613,7 +617,7 @@ def relbot(action):
                 break
 
         #Click here to Continue x3
-        input('594 - 3')
+
         for x in range(3):
             left_click(f'common/click_here_to_continue.png')
             time.sleep(random.randint(2,4))
@@ -638,7 +642,6 @@ def relbot(action):
                 break
 
         #Click here to Continue x2
-        input('619 - 2')
         for x in range(2):
             left_click(f'common/click_here_to_continue.png')
             time.sleep(random.randint(2,4))
@@ -687,7 +690,7 @@ def relbot(action):
                 break
 
         #Click here to Continue x4
-        input('665 - 4')
+
         for x in range(4):
             left_click(f'common/click_here_to_continue.png')
             time.sleep(random.randint(2,4))
