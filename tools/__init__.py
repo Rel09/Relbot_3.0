@@ -112,7 +112,8 @@ def engage_npc(npc_topleft):
             else:
                 region = get_winpos()
             x = pyautogui.locateCenterOnScreen(img_folder + f'NPC_ENGAGE/{npc_topleft.lower()}.png', confidence=0.9, region=region)
-            break
+            time.sleep(3)
+            if itemcheck(f'player_state/{npc_topleft}.png'):break
         except:
             print(f'{now_time} Could not find [{npc_topleft.lower()}]')
     pyautogui.moveTo(x)

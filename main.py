@@ -661,7 +661,7 @@ def relbot(action):
         time.sleep(6)
 
         #Open the gate
-        left_click_from(f'{path}52sprite.png', -15, -20)
+        left_click_from(f'{path}52sprite.png', -18, -25)
         time.sleep(2)
 
         #kill ehc leader
@@ -713,9 +713,10 @@ def relbot(action):
             time.sleep(6)
             if itemcheck(f'{path}55rat.png'):
                 break
-            #Get close to the gate
-            left_click_from(f'{path}51sprite.png', 0, -5)
-            time.sleep(5)
+            
+        #Get close to the gate
+        left_click_from(f'{path}51sprite.png', 0, -5)
+        time.sleep(5)
 
         #Wait until the fight is done
         while itemcheck(f'{path}55rat.png'):
@@ -727,7 +728,7 @@ def relbot(action):
 
         #Climb the ladder
         left_click(f'{path}56ladder.png')
-        time.sleep(3)
+        time.sleep(4)
 
         #-------------------------Next Area
 
@@ -751,7 +752,6 @@ def relbot(action):
         left_click(f'{path}60bank.png')
 
         #Click here to Continue x3
-        input('724 - 3')
         for x in range(3):
             left_click(f'common/click_here_to_continue.png')
             time.sleep(random.randint(1,3))
@@ -780,7 +780,6 @@ def relbot(action):
                 break
             
          #Click here to Continue x5
-        input('752 - 5')
         for x in range(5):
             left_click(f'common/click_here_to_continue.png')
             time.sleep(random.randint(1,3))
@@ -796,7 +795,6 @@ def relbot(action):
                 break
 
         #Click here to Continue x16
-        input('768 - 16')
         for x in range(16):
             left_click(f'common/click_here_to_continue.png')
             time.sleep(random.randint(1,3))
@@ -833,7 +831,7 @@ def relbot(action):
                 break
 
         #Click here to Continue x2
-        print('805 - 2')
+
         for x in range(2):
             left_click(f'common/click_here_to_continue.png')
             time.sleep(random.randint(1,3))
@@ -983,8 +981,7 @@ if __name__ == '__main__':
             print(' |       _// __ \|  | | __ \ /  _ \   __/')
             print(' |    |   \  ___/|  |_| \_\ (  <_> )  | ')
             print(' |____|_  /\___  >____/___  /\____/|__|')
-            print('        \/     \/         \/    ')
-            print('_________________________________________\n')
+            print('        \/     \/         \/    '\n)
             print('_______________Bot options_______________')
             for i, x in enumerate(botlist):
                 print(f'[{i}] - [{x}]')
