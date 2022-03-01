@@ -126,10 +126,13 @@ def select_target(target_name):
     settings_handler()
     write('npc indicators', 1)
     left_click_from('rl_settings/npc_indicator_settings.png', 120, 0)
+    left_click_from('rl_settings/npcindic_render.png', -10, 0)
     reset_handler()
+    left_click_from('rl_settings/npcindic_render.png', -10, 0)
     switch_handler(1)
     left_click_from('rl_settings/npcindic_highlighthull.png', 170, 0)
-    left_click('rl_settings/npcindic_npc2highlight.png')
+    left_click_from('rl_settings/npcindic_npc2highlight.png', 0 , 15)
+    pyautogui.hotkey('ctrl', 'a')
     write(target_name, 1)
     left_click_from('rl_settings/npcindic_drawname.png', 170, 0)
     settings_handler()
@@ -165,7 +168,7 @@ def left_clicks_from(x, coord_x, coord_y, count):
             y = y + coord_y
             pyautogui.moveTo(x, y)
             time.sleep(0.3)
-            pyautogui.click(clicks=int(count), interval=0.3)
+            pyautogui.click(clicks=int(count), interval=0.15)
             pyautogui.moveTo(game_region[0], game_region[1])
             break
         except:

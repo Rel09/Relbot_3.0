@@ -232,10 +232,13 @@ def relbot(action):
             #Choose the sex of the character
             roll = random.randint(1,2)
             if roll == 1:
-                side = list_color_side[0]
+                #already a male
+                pass
             else:
                 side = list_color_side[1]
-            left_click_from(f'{path}5colour.png', side, 237)
+                left_click_from(f'{path}5colour.png', side, 237)
+
+            
 
             for x in list_design:
                 roll = random.randint(1,2)
@@ -371,7 +374,7 @@ def relbot(action):
         while True:
             left_click(f'{path}12survival_expert.png')
             time.sleep(random.randint(2,4))
-            if itemcheck(f'{path}12survival_expert_confirm.png'):
+            if itemcheck(f'common/click_here_to_continue.png'):
                 break
 
         #Click here to Continue x2
@@ -507,11 +510,12 @@ def relbot(action):
             time.sleep(random.randint(2,3))
 
         #Get closer to the ladder
-        left_click_from(f'{path}33sprite.png' -5, 0)
+        left_click_from(f'{path}32map.png' -10, -5)
         time.sleep(3)
 
         #Get down the Ladder
-        left_click_from(f'{path}33sprite.png', -30, -10) 
+        left_click_from(f'{path}33sprite.png', -24, -7) 
+        time.sleep(2)
 
         #-------------------------------------------Mines
 
@@ -941,6 +945,7 @@ def relbot(action):
         else: username = None
         #Skip Auto-Setting?  
         skip_settings = input('Skip Auto-Settings? ( Y / N ) :> ').lower()
+        print(f'\n\n{now_time()}Bot Starting...')
         
         time.sleep(1.5)
         auto_relog()
