@@ -713,7 +713,7 @@ def relbot(action):
             time.sleep(6)
             if itemcheck(f'{path}55rat.png'):
                 break
-            
+
         #Get close to the gate
         left_click_from(f'{path}51sprite.png', 0, -5)
         time.sleep(5)
@@ -976,12 +976,21 @@ if __name__ == '__main__':
                     "Chicken Farming",
                     "Crab Farming" ]
         while True:
+
+
+
+
+
+
+
+
+
             print('__________       .__ ___.           __   ')
             print('\______   \ ____ |  |\_ |__   _____/  |_ ')
             print(' |       _// __ \|  | | __ \ /  _ \   __/')
             print(' |    |   \  ___/|  |_| \_\ (  <_> )  | ')
             print(' |____|_  /\___  >____/___  /\____/|__|')
-            print('        \/     \/         \/    '\n)
+            print('        \/     \/         \/')
             print('_______________Bot options_______________')
             for i, x in enumerate(botlist):
                 print(f'[{i}] - [{x}]')
