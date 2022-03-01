@@ -225,8 +225,9 @@ def relbot(action):
             
             #----Design list (head,jaw,torso,arms,hands,legs,feet)
             list_design = [30, 60, 97, 130, 170, 200, 235]
-            #Left or Right
             list_design_side = [-50, 60]
+            list_colour = [30, 65, 100, 135, 170]
+            list_color_side = [-50, 50]
 
             #Choose the sex of the character
             roll = random.randint(1,2)
@@ -234,9 +235,7 @@ def relbot(action):
                 side = list_color_side[0]
             else:
                 side = list_color_side[1]
-
             left_click_from(f'{path}5colour.png', side, 237)
-
 
             for x in list_design:
                 roll = random.randint(1,2)
@@ -249,8 +248,6 @@ def relbot(action):
                 left_clicks_from(f'{path}4design.png', side, x, roll)
 
             #------Colour list (Hair,Torso,Legs,Feet,Skin)
-            list_colour = [30, 65, 100, 135, 170]
-            list_color_side = [-50, 50]
 
             for x in list_colour:
                 roll = random.randint(1,2)
@@ -337,7 +334,16 @@ def relbot(action):
             time.sleep(random.randint(2, 3))
 
         #Get close to the Fishs
-        left_click_from(f'{path}11map.png', -8, 5)
+        while True:
+            if itemcheck(f'{path}11map.png'):
+                left_click_from(f'{path}11map.png', -8, 5)
+                break
+            elif itemcheck(f'{path}11.5map.png'):
+                y = random.randint(-30,30)
+                x = random.randint(-5,30)
+                left_click_from(f'{path}11.5map.png', x, y)
+                time.sleep(3)
+                
         time.sleep(random.randint(3, 4))
 
         #Click on the inventary
