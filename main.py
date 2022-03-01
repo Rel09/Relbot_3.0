@@ -403,11 +403,11 @@ def relbot(action):
         left_click('PLAYER_INVENTARY/wood.png')
         time.sleep(random.randint(1, 2))
 
-        input('FIRE TIME')
-
         #Select shrimp
         use_item('PLAYER_INVENTARY/shrimp.png', 'use')
         time.sleep(random.randint(1, 2))
+
+        input('Press Any key to die irl')
 
         #Click on fire
         left_click(f'{path}17fire.png')
@@ -510,7 +510,7 @@ def relbot(action):
             time.sleep(random.randint(2,3))
 
         #Get closer to the ladder
-        left_click_from(f'{path}32map.png' -10, -5)
+        left_click_from(f'{path}32map.png', -10, -5)
         time.sleep(3)
 
         #Get down the Ladder
@@ -958,6 +958,12 @@ if __name__ == '__main__':
     if dev == 1:
         #Ajouter Fill color = black ? pour les NPC
         path = 'Bot/tutorial_island/'
+        #Get closer to the ladder
+
+
+      
+
+
 
     
         
@@ -969,10 +975,17 @@ if __name__ == '__main__':
                     "Chicken Farming",
                     "Crab Farming" ]
         while True:
-            print('\n____Relbot_3.0_____\n')
-            print('Bot options:\n')
+            print('__________       .__ ___.           __   ')
+            print('\______   \ ____ |  |\_ |__   _____/  |_ ')
+            print(' |       _// __ \|  | | __ \ /  _ \   __/')
+            print(' |    |   \  ___/|  |_| \_\ (  <_> )  | ')
+            print(' |____|_  /\___  >____/___  /\____/|__|')
+            print('        \/     \/         \/    ')
+            print('_________________________________________\n')
+            print('_______________Bot options_______________')
             for i, x in enumerate(botlist):
                 print(f'[{i}] - [{x}]')
+            print('_________________________________________')
             bot = int(input('\nChoose bot Action:> '))
             bot = botlist[bot]
 
