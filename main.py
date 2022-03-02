@@ -656,12 +656,12 @@ def relbot(action):
         #Get ready for the fight
         #select_target('Giant rat')
 
-        #Get close to the gate
-        left_click_from(f'{path}51sprite.png', 0, -5)
+        #Get close to the gate 667
+        left_click_from(f'{path}51sprite.png', -7, -3)
         time.sleep(6)
 
         #Open the gate
-        left_click_from(f'{path}52sprite.png', -18, -25)
+        left_click_from(f'{path}52sprite.png', -12, -26)
         time.sleep(2)
 
         #kill ehc leader
@@ -690,7 +690,6 @@ def relbot(action):
                 break
 
         #Click here to Continue x4
-
         for x in range(4):
             left_click(f'common/click_here_to_continue.png')
             time.sleep(random.randint(2,4))
@@ -716,6 +715,19 @@ def relbot(action):
 
         #Get close to the gate
         left_click_from(f'{path}51sprite.png', 0, -5)
+        time.sleep(7)
+
+        #Shoot Rat with a Bow
+        while True:
+            left_click(f'{path}54rat.png')
+            time.sleep(6)
+            if itemcheck(f'{path}55rat.png'):
+                while itemcheck(f'{path}55rat.png'):
+                    time.sleep(1)
+                break
+
+        #Get close to the gate
+        left_click_from(f'{path}51sprite.png', 0, -5)
         time.sleep(5)
 
         #Wait until the fight is done
@@ -732,197 +744,9 @@ def relbot(action):
 
         #-------------------------Next Area
 
-        import_sprite('[{"RegionId":12336,"RegionX":26,"RegionY":35,"plane":0,"spriteId":1980,"scale":100},{"RegionId":12336,"RegionX":30,"RegionY":23,"plane":0,"spriteId":1982,"scale":100},{"RegionId":12336,"RegionX":27,"RegionY":23,"plane":0,"spriteId":1985,"scale":100},{"RegionId":12336,"RegionX":18,"RegionY":19,"plane":0,"spriteId":1989,"scale":100},{"RegionId":12336,"RegionX":7,"RegionY":12,"plane":0,"spriteId":1991,"scale":100},{"RegionId":12336,"RegionX":4,"RegionY":10,"plane":0,"spriteId":1970,"scale":100},{"RegionId":12336,"RegionX":1,"RegionY":18,"plane":0,"spriteId":1971,"scale":100},{"RegionId":12336,"RegionX":2,"RegionY":34,"plane":0,"spriteId":1956,"scale":100},{"RegionId":12336,"RegionX":4,"RegionY":48,"plane":0,"spriteId":1957,"scale":100},{"RegionId":12336,"RegionX":14,"RegionY":54,"plane":0,"spriteId":1964,"scale":100},{"RegionId":12336,"RegionX":17,"RegionY":47,"plane":0,"spriteId":1968,"scale":100}],{"RegionId":12336,"RegionX":50,"RegionY":51,"plane":0,"spriteId":1967,"scale":100}],{"RegionId":12336,"RegionX":59,"RegionY":35,"plane":0,"spriteId":1968,"scale":100}],{"RegionId":12336,"RegionX":60,"RegionY":16,"plane":0,"spriteId":1969,"scale":100}]')
-
-        #Get close to the bank
-        left_click(f'{path}57bank.png')
-        time.sleep(10)
-
-        #Open the Bank
-        left_click(f'{path}58bank.png')
-
-        #Close the bank
-        left_click_from(f'{path}59bank.png', 240, 0)
-
-        #Get closer to the booth
-        left_click_from(f'{path}57bank.png', -10, 10)
         
-        time.sleep(3)
-        #Click on Booth
-        left_click(f'{path}60bank.png')
 
-        #Click here to Continue x3
-        for x in range(3):
-            left_click(f'common/click_here_to_continue.png')
-            time.sleep(random.randint(1,3))
-
-        #Exit the booth
-        left_click_from(f'{path}61poll.png', 230, 0)
         
-        #Get close to the door
-        left_click_from(f'{path}57bank.png', 10, -4)
-        time.sleep(3)
-
-        #Open the door
-        left_click(f'{path}62closeddoor.png')
-        time.sleep(2)
-
-        #------------------------------------------Next room
-        #Switch target to guide
-        #select_target('Account Guide')
-
-
-        #Target account guide
-        while True:
-            left_click(f'{path}63guide.png')
-            time.sleep(random.randint(2,4))
-            if itemcheck(f'common/click_here_to_continue.png'):
-                break
-            
-         #Click here to Continue x5
-        for x in range(5):
-            left_click(f'common/click_here_to_continue.png')
-            time.sleep(random.randint(1,3))
-
-        #Click on the Account tab
-        left_click(f'{path}64account.png')
-
-        #Re-Target account guide
-        while True:
-            left_click(f'{path}63guide.png')
-            time.sleep(random.randint(2,4))
-            if itemcheck(f'common/click_here_to_continue.png'):
-                break
-
-        #Click here to Continue x16
-        for x in range(16):
-            left_click(f'common/click_here_to_continue.png')
-            time.sleep(random.randint(1,3))
-
-        #Get closer to the door
-        left_click_from(f'{path}57bank.png', 30, -4)
-        time.sleep(3)
-
-        #Opening the door
-        left_click(f'{path}65door.png')
-        time.sleep(2)
-        
-        #-----------------------Next area
-
-        #Walking outside
-        left_click_from(f'{path}57bank.png', 50, 40)
-        time.sleep(5)
-        
-        #Getting near the house
-        left_click(f'{path}66sprite.png')
-        time.sleep(4)
-
-        #Entering the house
-        left_click_from(f'{path}66sprite.png', -30, 0)
-
-        #Target the NPC
-        #select_target('Brother Brace')
-
-        #Target Brother brace
-        while True:
-            left_click(f'{path}67brotherbrace.png')
-            time.sleep(random.randint(2,4))
-            if itemcheck(f'common/click_here_to_continue.png'):
-                break
-
-        #Click here to Continue x2
-
-        for x in range(2):
-            left_click(f'common/click_here_to_continue.png')
-            time.sleep(random.randint(1,3))
-
-        #Click on prayer icon
-        left_click(f'{path}68prayer.png')
-
-        #Target Brother brace
-        while True:
-            left_click(f'{path}67brotherbrace.png')
-            time.sleep(random.randint(2,4))
-            if itemcheck(f'common/click_here_to_continue.png'):
-                break
-
-        #Click here to Continue x4
-        input('820 - 4')
-        for x in range(4):
-            left_click(f'common/click_here_to_continue.png')
-            time.sleep(random.randint(1,3))
-
-        #Target the Smiley icon
-        left_click(f'{path}69icon.png')
-
-        #Target Brother brace
-        while True:
-            left_click(f'{path}67brotherbrace.png')
-            time.sleep(random.randint(2,4))
-            if itemcheck(f'common/click_here_to_continue.png'):
-                break
-
-        #Click here to Continue x4
-        input('836 - 4')
-        for x in range(4):
-            left_click(f'common/click_here_to_continue.png')
-            time.sleep(random.randint(1,3))
-
-        #Getting close of the door
-        left_click_from(f'{path}66sprite.png', -35, 15)
-        time.sleep(4)
-
-        #Leaving the house
-        left_click(f'{path}70door.png')
-        time.sleep(2)
-
-        #----------------------Next area
-
-        #Getting closer of the house
-        left_click(f'{path}71sprite.png')
-        time.sleep(4)
-
-        #Enter the house
-        left_click_from(f'{path}71sprite.png', 40, 0)
-        time.sleep(3)
-        
-        #Target the magic instructor
-        #select_target('Magic Instructor')
-
-        #Target the Magic Instructor
-        while True:
-            left_click(f'{path}72magicinstructor.png')
-            time.sleep(random.randint(2,4))
-            if itemcheck(f'common/click_here_to_continue.png'):
-                break
-
-        #Click here to Continue x2
-        input('868 - 2')
-        for x in range(2):
-            left_click(f'common/click_here_to_continue.png')
-            time.sleep(random.randint(1,3))
-
-        #Click on the spell book
-        left_click(f'{path}73spellbook.png')
-
-        #Target the Magic Instructor
-        while True:
-            left_click(f'{path}72magicinstructor.png')
-            time.sleep(random.randint(2,4))
-            if itemcheck(f'common/click_here_to_continue.png'):
-                break
-
-        #Click here to Continue x2
-        input('884 - 2')
-        for x in range(2):
-            left_click(f'common/click_here_to_continue.png')
-            time.sleep(random.randint(1,3))
-
-        #Select spell
-        left_click(f'{path}74spell.png')
-
-        #Selecting Chicken
-        #select_target('Chicken')    
 
     #User Options
     if action == 'Settings':
@@ -942,7 +766,12 @@ def relbot(action):
         #Skip Character Creation?
         skip_username = input('Skip Character Creation? ( Y / N ) :> ').lower()
         if skip_username != 'y':
-            username = input('Enter Character username :> ')
+            while True:
+                username = input('Enter Character username :> ')
+                if not len(username) > 12:break
+                else: print('_____12 Character max_____')
+
+
         else: username = None
         #Skip Auto-Setting?  
         skip_settings = input('Skip Auto-Settings? ( Y / N ) :> ').lower()
@@ -961,9 +790,7 @@ if __name__ == '__main__':
         path = 'Bot/tutorial_island/'
         #Get closer to the ladder
 
-
-      
-
+       
 
 
     
@@ -977,24 +804,15 @@ if __name__ == '__main__':
                     "Crab Farming" ]
         while True:
 
-
-
-
-
-
-
-
-
-            print('__________       .__ ___.           __   ')
+            print('\n__________       .__ ___.           __   ')
             print('\______   \ ____ |  |\_ |__   _____/  |_ ')
             print(' |       _// __ \|  | | __ \ /  _ \   __/')
             print(' |    |   \  ___/|  |_| \_\ (  <_> )  | ')
-            print(' |____|_  /\___  >____/___  /\____/|__|')
-            print('        \/     \/         \/')
-            print('_______________Bot options_______________')
+            print(' |____|_  /\___  >____/___  /\____/|__|\n')
+            print('______________ Bot options _____________\n')
             for i, x in enumerate(botlist):
-                print(f'[{i}] - [{x}]')
-            print('_________________________________________')
+                print(f'       [{i}] - [{x}]')
+            print('________________________________________')
             bot = int(input('\nChoose bot Action:> '))
             bot = botlist[bot]
 
