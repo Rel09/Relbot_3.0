@@ -112,16 +112,16 @@ def engage_npc(npc_topleft):
             else:
                 region = get_winpos()
             x = pyautogui.locateCenterOnScreen(img_folder + f'NPC_ENGAGE/{npc_topleft.lower()}.png', confidence=0.9, region=region)
+            pyautogui.moveTo(x)
+            pyautogui.click()
             time.sleep(3)
             if itemcheck(f'player_state/{npc_topleft}.png'):break
         except:
             print(f'{now_time} Could not find [{npc_topleft.lower()}]')
-    pyautogui.moveTo(x)
-    pyautogui.click()
     
 
     time_Start = datetime.datetime.now()
-    while r_timer(time_Start, 7) or not player_InFight(f'player_state/{npc_topleft}.png'):
+    while r_timer(time_Start, 6) or not player_InFight(f'player_state/{npc_topleft}.png'):
         pass
 def select_target(target_name):
     settings_handler()
