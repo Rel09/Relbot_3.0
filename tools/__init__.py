@@ -100,6 +100,12 @@ def r_timer(time_Start, wait_time_in_second):
     return True
 
 #Player attack/Select(NPC INDICATOR)
+def target_until(enemy_picture, until_picture):
+    while True:
+        left_click(f'{enemy_picture}')
+        time.sleep(random.randint(2,4))
+        if itemcheck(f'{until_picture}'):
+            break
 def engage_npc(npc_topleft):
     #Need picture in player_state/NPC_NAME.png
     #Need picture in NPC_ENGAGE/NPC_NAME.png
@@ -158,7 +164,10 @@ def player_InFight(top_left_enemy_name):
                 print(f"{now_time()} Player_State[{p_state.upper()}]")
                 return True
         return False
-
+def ctc_x(amount):
+        for x in range(amount):
+            left_click(f'common/click_here_to_continue.png')
+            time.sleep(random.randint(2,4))
 #Clicks
 def left_clicks_from(x, coord_x, coord_y, count):
     while True:

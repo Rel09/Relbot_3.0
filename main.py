@@ -432,6 +432,8 @@ def relbot(action):
         left_click(f'{path}21opendoor.png')
         time.sleep(random.randint(2, 4))
 
+        input('take chef screenshots')
+
         #Target Master Chef
         while True:
             left_click(f'{path}22masterchief.png')
@@ -509,10 +511,10 @@ def relbot(action):
 
         #Get closer to the ladder
         left_click_from(f'{path}32map.png', -10, -5)
-        time.sleep(3)
+        time.sleep(2)
 
         #Get down the Ladder
-        left_click_from(f'{path}33sprite.png', -24, -7) 
+        left_click_from(f'{path}33sprite.png', -24, 10) 
         time.sleep(2)
 
         #-------------------------------------------Mines
@@ -596,8 +598,6 @@ def relbot(action):
         left_click_from(f'{path}34sprite.png', 54, 13)
         
         #--------------------------------COMBAT 
-        #Select the Next NPC
-        #select_target('Combat Instructor')
 
         time.sleep(8)
 
@@ -679,15 +679,8 @@ def relbot(action):
         left_click_from(f'{path}42sprite.png', 20, 0)
         time.sleep(4)
 
-        #Select the Combat instructor
-        #select_target('Combat Instructor')
-
         #Target Combat instructor
-        while True:
-            left_click(f'{path}43combatinstructor.png')
-            time.sleep(random.randint(2,4))
-            if itemcheck(f'common/click_here_to_continue.png'):
-                break
+        target_until(f'{path}43combatinstructor.png', f'common/click_here_to_continue.png')
 
         #Click here to Continue x4
         for x in range(4):
@@ -744,6 +737,120 @@ def relbot(action):
 
         #-------------------------Next Area
 
+        #Get closer of the bank
+        left_click_from(f'{path}57sprite.png', 10, 20)
+        time.sleep(7)
+        
+        #We open the bank
+        left_click_from(f'{path}58sprite.png', 75, 100)
+        time.sleep(2)
+       
+        #Close the bank
+        left_click_from(f'{path}59bank.png', 230, 0)
+        
+        #Open the Poll Booth
+        left_click_from(f'{path}58sprite.png', 0, 182)
+        time.sleep(2)
+        
+        #Click here to Continue x3
+        for x in range(2):
+            left_click(f'common/click_here_to_continue.png')
+            time.sleep(random.randint(2,4))
+        
+        #Close the Poll Booth
+        left_click_from(f'{path}60poolhistory.png', 230, 0)
+        
+        #Get close to the door
+        left_click_from(f'{path}58sprite.png', 130, 100)
+        time.sleep(2)
+        
+        #Open the door
+        left_click_from(f'{path}58sprite.png', 150, 100)
+        time.sleep(2)
+        
+        #Target the account guide
+        target_until(f'{path}61accountguide.png', 'common/click_here_to_continue.png')
+        
+        #Click 5x
+        for x in range(4):
+            left_click(f'common/click_here_to_continue.png')
+            time.sleep(random.randint(2,4))
+        left_click(f'{path}62accsettings.png')
+        time.sleep(1)
+        target_until(f'{path}61accountguide.png', 'common/click_here_to_continue.png')
+        
+        #Click 17x
+        for x in range(16):
+            left_click(f'common/click_here_to_continue.png')
+            time.sleep(random.randint(2,4))
+       
+        #Click on the door
+        left_click_from(f'{path}58sprite.png', 275, 100)
+        
+        #Get closer of the next area
+        left_click_from(f'{path}63mapsprite.png', 5, 15)
+        time.sleep(7)
+        
+        #Even closer
+        left_click_from(f'{path}63mapsprite.png', -10, 24)
+        time.sleep(2)
+        target_until(f'{path}64brotherbrace.png', 'common/click_here_to_continue.png')
+        
+        #Click 2x
+        for x in range(1):
+            left_click(f'common/click_here_to_continue.png')
+            time.sleep(random.randint(2,4))
+        
+        #Open the prayer menu
+        left_click(f'{path}65prayermenu.png')
+        time.sleep(1)
+        
+        #Target brother brace
+        target_until(f'{path}64brotherbrace.png', 'common/click_here_to_continue.png')
+        
+        #Click 4x
+        ctc_x(3)
+
+        #Target brother brace
+        target_until(f'{path}64brotherbrace.png', 'common/click_here_to_continue.png')
+        
+        ctc_x(3)
+        
+        #Leave the bouse
+        left_click_from(f'{path}67sprite.png', -150, 250)
+        
+        #Get closer of the next house
+        left_click_from(f'{path}68mapsprite.png', 0, 15)
+        time.sleep(6)
+        
+        #Get in the house
+        left_click_from(f'{path}68mapsprite.png', 35, 15)
+        time.sleep(3)
+
+        target_until(f'{path}69magicinstructor.png', 'common/click_here_to_continue.png')
+        
+        ctc_x(1)
+        
+        time.sleep(1)
+        #Target instructor
+        target_until(f'{path}69magicinstructor.png', 'common/click_here_to_continue.png')
+        ctc_x(1)
+        
+        #Click on the Fireball
+        left_click(f'{path}71fireball.png')
+        time.sleep(1)
+        #Attack chicken
+        engage_npc('Chicken')
+
+        #Click here to continue
+        target_until(f'{path}69magicinstructor.png', 'common/click_here_to_continue.png')
+        left_click(f'common/click_here_to_continue.png')
+        left_click(f'{path}72mainland.png')
+        left_click(f'common/click_here_to_continue.png')
+        #-----IRON MAN------- check IRONMAN.png for more info
+        left_click(f'{path}73noty.png')
+        ctc_x(4)
+
         
 
         
@@ -788,13 +895,10 @@ if __name__ == '__main__':
     if dev == 1:
         #Ajouter Fill color = black ? pour les NPC
         path = 'Bot/tutorial_island/'
-        #Get closer to the ladder
 
-       
 
 
     
-        
         #This Section is purely for Testing & implementing
         pass
     else:
