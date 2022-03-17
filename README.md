@@ -2,6 +2,20 @@
 
 ***I gave up this project, Feel free to use it***
 
+
+
+how to use:
+
+-clone git repo from your c:/
+-you will need to have python installed on your pc (in your windows path)
+-put a relbot.bat shortcut on your desktop
+-open runelite, make sure your logged/in-game
+-click the initial config on first launch
+-crabs bot works from crabs area ( near the bank, sorry, i dont know osrs very well lol)
+-chicken works at the chickens spot north-east of lumbridge
+-Tutorial island working 80%
+
+
 ----------
 Relbot 3.0
 ----------
@@ -14,12 +28,12 @@ Featuring:
     -Tutorial Island Bot
 
 
-***********************************************
-This software is made to run on Private server
-This is not intended to run on live OSRS server
-_____________USE AT YOUR OWN RISK______________
-___________YOU WILL 100% GET BANNED____________
-***********************************************
+        ***********************************************
+        This software is made to run on Private server
+        This is not intended to run on live OSRS server
+        _____________USE AT YOUR OWN RISK______________
+        ___________YOU WILL 100% GET BANNED____________
+        ***********************************************
 
 
 
